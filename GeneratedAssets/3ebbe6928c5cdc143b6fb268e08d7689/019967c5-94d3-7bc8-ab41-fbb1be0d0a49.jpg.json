@@ -1,0 +1,20 @@
+{
+    "asset": "3ebbe6928c5cdc143b6fb268e08d7689",
+    "fileName": "019967c5-94d3-7bc8-ab41-fbb1be0d0a49.jpg",
+    "prompt": "Dwarf Body",
+    "negativePrompt": "",
+    "model": "94c4260f-b988-40e7-b3d3-435b9f449bd0",
+    "modelName": "Flux.1 Dev",
+    "customSeed": -1,
+    "w3CTraceId": "e2523a4e4665681d083263dd66cffd06",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

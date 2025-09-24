@@ -1,0 +1,11 @@
+{
+    "asset": "daacd3b2300d7f146a785c6317b7d067",
+    "fileName": "01996796-e028-7757-8fa7-3480c503ea75.pose.json",
+    "prompt": "Guard animation with two shields",
+    "negativePrompt": "",
+    "model": "a9c27ca4-3ec9-43e8-96cd-ee891aba64c5",
+    "modelName": "Text to Motion",
+    "customSeed": 1162726714,
+    "w3CTraceId": "fc14c8eca35925786cee96d9a8dc81c6",
+    "isTrimmed": false
+}

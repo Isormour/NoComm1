@@ -1,0 +1,11 @@
+{
+    "asset": "daacd3b2300d7f146a785c6317b7d067",
+    "fileName": "01996797-3ff3-73da-94af-042ef4495e78.pose.json",
+    "prompt": "Guard animation with two shields, idle. hold still both hands",
+    "negativePrompt": "",
+    "model": "a9c27ca4-3ec9-43e8-96cd-ee891aba64c5",
+    "modelName": "Text to Motion",
+    "customSeed": 1851946069,
+    "w3CTraceId": "a6f79b88495a19fa38ac52355e2e4421",
+    "isTrimmed": false
+}

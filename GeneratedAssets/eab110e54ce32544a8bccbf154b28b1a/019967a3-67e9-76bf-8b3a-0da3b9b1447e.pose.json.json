@@ -1,0 +1,11 @@
+{
+    "asset": "eab110e54ce32544a8bccbf154b28b1a",
+    "fileName": "019967a3-67e9-76bf-8b3a-0da3b9b1447e.pose.json",
+    "prompt": "boxing guard",
+    "negativePrompt": "",
+    "model": "a9c27ca4-3ec9-43e8-96cd-ee891aba64c5",
+    "modelName": "Text to Motion",
+    "customSeed": 1413595800,
+    "w3CTraceId": "de354eb4588d5c50de87ac3ac19fce4e",
+    "isTrimmed": false
+}
