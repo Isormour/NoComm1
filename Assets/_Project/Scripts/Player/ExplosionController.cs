@@ -26,7 +26,14 @@ public class ExplosionController : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             BasicEnemy enemy = other.GetComponent<BasicEnemy>();
-            enemy.DealDamage(explosion.Damage, this.transform.position);
+            DamageData damageData = new DamageData()
+            {
+                Damage = explosion.Damage,
+                DamageSourcePosition = transform.position,
+                Target = enemy.transform,
+                Owner = transform
+            };
+            enemy.DealDamage(damageData);
         }
     }
     public void Update()

@@ -15,7 +15,11 @@ public class GameplayManager : MonoBehaviour
 
         Instance = this;
 
-        Player.SetSkillInSlot(0, Skills[0]);
+
+        for (int i = 0; i < Skills.Length; i++)
+        {
+            Player.SetSkillInSlot(i, Skills[i]);
+        }
     }
 
     // Update is called once per frame

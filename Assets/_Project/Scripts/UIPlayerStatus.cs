@@ -1,9 +1,13 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIPlayerStatus : UIPlayerControl
 {
-    [SerializeField] Transform healthBar;
-    [SerializeField] Transform manaBar;
+    [SerializeField] private Image healthBar;
+    [SerializeField] private Image manaBar;
+    [SerializeField] private Image expStatus;
+    [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] float lerpSpeed = 100;
 
     float currentScaleHealth;
@@ -18,7 +22,9 @@ public class UIPlayerStatus : UIPlayerControl
         currentScaleMana = Mathf.Lerp(currentScaleMana, manaNormalized, lerpSpeed * Time.deltaTime);
         currentScaleHealth = Mathf.Lerp(currentScaleHealth, healthNormalized, lerpSpeed * Time.deltaTime);
 
-        healthBar.transform.localScale = new Vector3(1, currentScaleHealth, 1);
-        manaBar.transform.localScale = new Vector3(1, currentScaleMana, 1);
+        healthBar.fillAmount = currentScaleHealth;
+        manaBar.fillAmount = currentScaleMana;
+        expStatus.fillAmount = levelController.LevelProgress;
+        levelText.text = levelController.Level.ToString();
     }
 }

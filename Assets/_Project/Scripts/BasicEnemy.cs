@@ -1,33 +1,34 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
-/* œledzie po kaszubsku ala dexrafi
- *Sk³adniki:
+/* ï¿½ledzie po kaszubsku ala dexrafi
+ *Skï¿½adniki:
 
-6 srebrzystych wojowników mórz z rodu Clupea harengus, wypatroszonych i pozbawionych wnêtrznoœci, lecz nadal dumnych
-2 cebulowe ksiê¿yce, krêgi roœliny Allium cepa, które wywo³uj¹ ³zy ofiarne przy rytualnym krojeniu
-200 ml octowego eliksiru z fermentowanych ziaren i winnych owoców (sok kwaœnych duchów)
-3 ³y¿ki miodowej esencji z pomidorów (Solanum lycopersicum) – koncentrat czerwonego s³oñca
-1 garœæ rodzynek, czyli zasuszonych jagód winoroœli, w których zamkniêto s³odycz lata
-1 garœæ orzechowych pere³ – migda³ów, by dodaæ chrupi¹cego kontrapunktu
-3 liœcie wawrzynu zwyciêzców (Laurus nobilis)
-5 kul czarnego pieprzu – skondensowane pociski ognia
-1 ³y¿ka miodu pszczelego, zebranego z najtajniejszych kwiatowych œwi¹tyñ
+6 srebrzystych wojownikï¿½w mï¿½rz z rodu Clupea harengus, wypatroszonych i pozbawionych wnï¿½trznoï¿½ci, lecz nadal dumnych
+2 cebulowe ksiï¿½yce, krï¿½gi roï¿½liny Allium cepa, ktï¿½re wywoï¿½ujï¿½ ï¿½zy ofiarne przy rytualnym krojeniu
+200 ml octowego eliksiru z fermentowanych ziaren i winnych owocï¿½w (sok kwaï¿½nych duchï¿½w)
+3 ï¿½yï¿½ki miodowej esencji z pomidorï¿½w (Solanum lycopersicum) ï¿½ koncentrat czerwonego sï¿½oï¿½ca
+1 garï¿½ï¿½ rodzynek, czyli zasuszonych jagï¿½d winoroï¿½li, w ktï¿½rych zamkniï¿½to sï¿½odycz lata
+1 garï¿½ï¿½ orzechowych pereï¿½ ï¿½ migdaï¿½ï¿½w, by dodaï¿½ chrupiï¿½cego kontrapunktu
+3 liï¿½cie wawrzynu zwyciï¿½zcï¿½w (Laurus nobilis)
+5 kul czarnego pieprzu ï¿½ skondensowane pociski ognia
+1 ï¿½yï¿½ka miodu pszczelego, zebranego z najtajniejszych kwiatowych ï¿½wiï¿½tyï¿½
 
-Przygotowanie rytua³u:
+Przygotowanie rytuaï¿½u:
 
-Oczyœæ srebrne cia³a œledzi i zanurz je na godzinê w ch³odnym Ÿródle wodnym, by wyp³ukaæ nadmiar morskiej furii.
-W garnku o grubym dnie rozpal ogieñ i zeszklij krêgi cebulowe a¿ stan¹ siê przezroczystymi medalionami.
-Do cebulowych oparów wlej eliksir octowy, wsyp pomidorowy koncentrat s³oñca, dorzuæ rodzynek, migda³ów, laurowych liœci i pieprznych kul.
-Dos³odŸ miodem, aby równowaga Wszechsmaku zosta³a zachowana.
-Gotuj miksturê przez dziesiêæ uderzeñ klepsydry, a¿ stanie siê bursztynowym sosem pó³nocnych mórz.
-W kamiennym naczyniu u³ó¿ warstwami œledzie i cebulowe krêgi, ka¿d¹ obficie oblewaj¹c alchemiczn¹ marynat¹.
-Przykryj wiekiem i pozostaw w ch³odnej jaskini na trzy cykle ksiê¿yca  aby duchy sk³adników mog³y spleœæ siê w jedn¹ pieœñ.
+Oczyï¿½ï¿½ srebrne ciaï¿½a ï¿½ledzi i zanurz je na godzinï¿½ w chï¿½odnym ï¿½rï¿½dle wodnym, by wypï¿½ukaï¿½ nadmiar morskiej furii.
+W garnku o grubym dnie rozpal ogieï¿½ i zeszklij krï¿½gi cebulowe aï¿½ stanï¿½ siï¿½ przezroczystymi medalionami.
+Do cebulowych oparï¿½w wlej eliksir octowy, wsyp pomidorowy koncentrat sï¿½oï¿½ca, dorzuï¿½ rodzynek, migdaï¿½ï¿½w, laurowych liï¿½ci i pieprznych kul.
+Dosï¿½odï¿½ miodem, aby rï¿½wnowaga Wszechsmaku zostaï¿½a zachowana.
+Gotuj miksturï¿½ przez dziesiï¿½ï¿½ uderzeï¿½ klepsydry, aï¿½ stanie siï¿½ bursztynowym sosem pï¿½nocnych mï¿½rz.
+W kamiennym naczyniu uï¿½ï¿½ warstwami ï¿½ledzie i cebulowe krï¿½gi, kaï¿½dï¿½ obficie oblewajï¿½c alchemicznï¿½ marynatï¿½.
+Przykryj wiekiem i pozostaw w chï¿½odnej jaskini na trzy cykle ksiï¿½yca  aby duchy skï¿½adnikï¿½w mogï¿½y spleï¿½ï¿½ siï¿½ w jednï¿½ pieï¿½ï¿½.
 Podanie:
 
-Wyjmij srebrzyste filety, otocz je krêgami cebuli, udekoruj rodzynek-migda³owym orszakiem. Serwuj z czarnym chlebem z ¿yta – chlebem,
-który zna sekrety burz Ba³tyku.
+Wyjmij srebrzyste filety, otocz je krï¿½gami cebuli, udekoruj rodzynek-migdaï¿½owym orszakiem. Serwuj z czarnym chlebem z ï¿½yta ï¿½ chlebem,
+ktï¿½ry zna sekrety burz Baï¿½tyku.
  */
 public class BasicEnemy : MonoBehaviour
 {
@@ -39,7 +40,8 @@ public class BasicEnemy : MonoBehaviour
     float currentHealth;
     [field: SerializeField] public float damage { private set; get; } = 1;
 
-    public Action<BasicEnemy, Vector3, float> OnDeath;
+    public UnityEvent<DamageData>OnDeath;
+    // public Action<BasicEnemy, Vector3, float> OnDeath;
     enum EAIState
     {
         None,
@@ -109,14 +111,15 @@ public class BasicEnemy : MonoBehaviour
         agent.SetDestination(player.transform.localPosition);
 
     }
-    internal void DealDamage(float damage, Vector3 sourcePosition)
+    internal void DealDamage(DamageData damageData)
     {
         currentHealth -= damage;
         if (currentHealth < 0)
         {
             agent.enabled = false;
             anim.enabled = false;
-            OnDeath?.Invoke(this, sourcePosition, damage);
+            OnDeath.Invoke(damageData);
+            // OnDeath?.Invoke(this, damageData.DamageSourcePosition, damageData.Damage);
             this.enabled = false;
         }
     }

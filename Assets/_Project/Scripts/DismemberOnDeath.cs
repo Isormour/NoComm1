@@ -8,10 +8,11 @@ public class DismemberOnDeath : MonoBehaviour
     [SerializeField] float force = 100;
     private void Start()
     {
-        enemy.OnDeath += OnDeath;
+        enemy.OnDeath.AddListener(OnDeath);
+        // enemy.OnDeath += OnDeath;
         rbs = GetComponentsInChildren<Rigidbody>();
     }
-    void OnDeath(BasicEnemy enemy, Vector3 sourcePosition, float damage)
+    void OnDeath(DamageData damageData)
     {
         foreach (var item in deparentTransforms)
         {
@@ -24,9 +25,9 @@ public class DismemberOnDeath : MonoBehaviour
 
         foreach (var item in rbs)
         {
-            Vector3 direction = item.transform.position - sourcePosition;
+            Vector3 direction = item.transform.position - damageData.DamageSourcePosition;
             direction.y = Mathf.Clamp(direction.y, 0, 100);
-            item.AddForce(direction * force * damage, ForceMode.Impulse);
+            item.AddForce(direction * force * damageData.Damage, ForceMode.Impulse);
         }
     }
 }
