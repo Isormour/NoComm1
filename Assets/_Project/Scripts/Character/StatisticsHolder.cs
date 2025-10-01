@@ -49,6 +49,11 @@ public class StatisticsHolder : MonoBehaviour
     {
         damageData = DamageCalculator.CalculateDamage(damageData);
         ChangeAmountHealth(-damageData.Damage);
+        OnDamage.Invoke(damageData);
+        if (currentHealth <= 0)
+        {
+            OnDeath.Invoke(damageData);
+        }
         if(hitVFX!=null && damageData.Particles > 0)
             hitVFX.Play(damageData.Particles);
     }
