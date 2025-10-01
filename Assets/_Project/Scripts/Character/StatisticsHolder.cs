@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework.Internal.Filters;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,6 +10,8 @@ public class StatisticsHolder : MonoBehaviour
     public UnityEvent<DamageData> OnDeath;
     public EShieldState EShieldState { get; private set; }
     public float Damage => damage;
+
+    public bool IsDead => currentHealth <= 0;
 
     public DamageCalculator DamageCalculator { get; set; } = new DamageCalculator();
     [SerializeField] SimpleVFX hitVFX;
@@ -47,6 +50,8 @@ public class StatisticsHolder : MonoBehaviour
 
     public void TakeDamage(DamageData damageData)
     {
+        if (IsDead)
+            return;
         damageData = DamageCalculator.CalculateDamage(damageData);
         ChangeAmountHealth(-damageData.Damage);
         OnDamage.Invoke(damageData);
