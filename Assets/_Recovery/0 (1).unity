@@ -1152,10 +1152,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 939489444}
     - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
-      propertyPath: IgnoreTag
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: CameraDistance
       value: 7.5
       objectReference: {fileID: 0}

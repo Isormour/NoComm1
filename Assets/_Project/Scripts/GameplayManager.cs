@@ -4,7 +4,7 @@ public class GameplayManager : MonoBehaviour
 {
     public static GameplayManager Instance;
     public PlayerController Player;
-    public PlayerSkill[] Skills;
+    public Skill[] Skills;
     public void Awake()
     {
         if (Instance != null)

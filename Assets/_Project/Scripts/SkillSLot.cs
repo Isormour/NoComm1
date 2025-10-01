@@ -1,17 +1,20 @@
 ﻿using System;
 using UnityEngine;
-using ESkillType = PlayerSkill.ESkillType;
+using ESkillType = Skill.ESkillType;
 [System.Serializable]
 
 public class SkillSLot
 {
     public KeyCode pressKeyCode;
-    public PlayerSkill skillToExecute { private set; get; }
+    public Skill skillToExecute { private set; get; }
     public int mouseButton = -1;
+
+    public float CooldownPrecent { get; private set; }
+    public float Cooldown { get; private set; }
 
     bool charging = false;
     public Action<SkillSLot> OnSkillChanged;
-    public void SetSkill(PlayerSkill skill)
+    public void SetSkill(Skill skill)
     {
         this.skillToExecute = skill;
         OnSkillChanged?.Invoke(this);
@@ -19,6 +22,16 @@ public class SkillSLot
     public void CheckSkillInput()
     {
         if (skillToExecute == null) return;
+
+        if (Cooldown > 0)
+        {
+            Cooldown -= Time.deltaTime;
+            CooldownPrecent = Cooldown / skillToExecute.CooldownTime;
+            return;
+        }
+
+        Cooldown = 0;
+        CooldownPrecent = 0;
 
         if (mouseButton < 0)
         {
@@ -53,6 +66,7 @@ public class SkillSLot
     {
         if (skillToExecute.skilltype != ESkillType.Charge)
             return;
+        Cooldown = skillToExecute.CooldownTime;
         skillToExecute.ReleaseCharge();
         charging = false;
     }
@@ -61,6 +75,7 @@ public class SkillSLot
     {
         if (skillToExecute.skilltype == ESkillType.Instant)
         {
+            Cooldown = skillToExecute.CooldownTime;
             skillToExecute.Execute();
             return;
         }

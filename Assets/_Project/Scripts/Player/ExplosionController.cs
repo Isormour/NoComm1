@@ -8,7 +8,7 @@ public class ExplosionController : MonoBehaviour
     float currentTime = 0;
     [SerializeField] AnimationCurve VFXCurve;
     Vector3 locScale;
-    PlayerSkillExplosion explosion;
+    SkillExplosion explosion;
     private void Start()
     {
         currentTime = Duration;
@@ -17,7 +17,7 @@ public class ExplosionController : MonoBehaviour
         locScale = transform.localScale;
         Destroy(this.gameObject, Duration);
     }
-    internal void SetParams(PlayerSkillExplosion explosion)
+    internal void SetParams(SkillExplosion explosion)
     {
         this.explosion = explosion;
     }

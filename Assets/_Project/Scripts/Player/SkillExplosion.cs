@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Skill", menuName = "Player/Skill/Explosion", order = 1)]
-public class PlayerSkillExplosion : PlayerSkill
+public class SkillExplosion : Skill
 {
     [SerializeField] ExplosionController ExplosionPrefab;
     [SerializeField] ParticleSystem ChargeVFXPrefab;

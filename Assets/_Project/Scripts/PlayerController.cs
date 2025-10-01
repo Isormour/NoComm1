@@ -123,8 +123,8 @@ public class PlayerController : MonoBehaviour
         if (rightShield.shieldState != PlayerShield.EShieldState.Thrown) rightShield.GuardDown();
     }
 
-    internal void SetSkillInSlot(int index, PlayerSkill playerSkill)
+    internal void SetSkillInSlot(int index, Skill skill)
     {
-        skillSlots[index].SetSkill(playerSkill);
+        skillSlots[index].SetSkill(skill);
     }
 }

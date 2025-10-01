@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class PlayerSkill : ScriptableObject
+public abstract class Skill : ScriptableObject
 {
     public enum ESkillType
     {
@@ -9,6 +9,7 @@ public abstract class PlayerSkill : ScriptableObject
     }
     [field: SerializeField] public float Cost { private set; get; }
     [field: SerializeField] public int Level { private set; get; }
+    [field: SerializeField] public float CooldownTime { private set; get; }
     [field: SerializeField] public ESkillType skilltype { private set; get; }
 
     [field: SerializeField] public Sprite Icon { private set; get; }
