@@ -31,7 +31,7 @@ public class ExplosionController : MonoBehaviour
                 Damage = explosion.Damage,
                 DamageSourcePosition = transform.position,
                 Target = enemy.transform,
-                Owner = transform
+                Owner = explosion.SkillData.Owner
             };
             enemy.TakeDamage(damageData);
         }
