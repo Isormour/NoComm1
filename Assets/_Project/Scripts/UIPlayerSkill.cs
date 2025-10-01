@@ -11,7 +11,7 @@ public class UIPlayerSkill : MonoBehaviour
 
     [SerializeField] private Image timeSprite;
     [SerializeField] private TextMeshProUGUI timeText;
-    public SkillSLot skillSlot { private set; get; }
+    public SkillSlot skillSlot { private set; get; }
 
     private void Update()
     {
@@ -22,7 +22,7 @@ public class UIPlayerSkill : MonoBehaviour
         timeText.text = cooldownTime > 0 ? skillSlot.Cooldown.ToString("0.0") : "";
     }
 
-    public void SetSlot(SkillSLot slot)
+    public void SetSlot(SkillSlot slot)
     {
         skillSlot = slot;
         skillSlot.OnSkillChanged = OnSkillChanged;
@@ -30,12 +30,12 @@ public class UIPlayerSkill : MonoBehaviour
 
     }
 
-    void OnSkillChanged(SkillSLot slot)
+    void OnSkillChanged(SkillSlot slot)
     {
         UpdateIcon(slot);
 
     }
-    private void UpdateIcon(SkillSLot slot)
+    private void UpdateIcon(SkillSlot slot)
     {
         if (slot.skillToExecute == null) return;
         icon.sprite = slot.skillToExecute.Icon;

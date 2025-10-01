@@ -15,6 +15,12 @@ public abstract class Skill : ScriptableObject
     [field: SerializeField] public Sprite Icon { private set; get; }
     [field: SerializeField] public int id { private set; get; }
 
+    protected SkillData skillData;
+    public virtual void InitSkillData(SkillData skillData)
+    {
+        this.skillData = skillData;
+    }
+
     public virtual void Execute()
     {
 

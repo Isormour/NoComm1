@@ -5,10 +5,10 @@ public class ExpPrizeController : MonoBehaviour
 {
     [SerializeField] private float exp;
     [SerializeField] private BasicEnemy basicEnemy;
-
-    private void Awake()
+    
+    private void Start()
     {
-        basicEnemy.OnDeath.AddListener(OnDeath);
+        basicEnemy.StatisticsHolder.OnDeath.AddListener(OnDeath);
     }
 
     private void OnDeath(DamageData damageData)

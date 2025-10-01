@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Skill", menuName = "Player/Skill/Explosion", order = 1)]
-public class SkillExplosion : Skill
+public class PlayerSkillExplosion : Skill
 {
     [SerializeField] ExplosionController ExplosionPrefab;
     [SerializeField] ParticleSystem ChargeVFXPrefab;
@@ -10,7 +10,14 @@ public class SkillExplosion : Skill
 
     public float chargeValue { private set; get; } = 0;
 
-    ParticleSystem currentChargeVFX;
+    private ParticleSystem currentChargeVFX;
+    private PlayerController playerController;
+
+    public override void InitSkillData(SkillData skillData)
+    {
+        base.InitSkillData(skillData);
+        playerController = skillData.Owner.GetComponent<PlayerController>();
+    }
 
     public override void StartCharge()
     {
@@ -26,20 +33,18 @@ public class SkillExplosion : Skill
 
     public override void UpdateCharge()
     {
-        base.UpdateCharge();
         chargeValue += Time.deltaTime;
         float min = Mathf.Clamp(0.1f * (1 + chargeValue), 0.1f, 1.0f);
         float max = Mathf.Clamp(0.2f * (1 + chargeValue), 0.2f, 2.0f);
 
         ChangeChargeVRXParams(100 * chargeValue, new Vector2(min, max));
 
-        GameplayManager.Instance.Player.OnCharging();
-        GameplayManager.Instance.Player.playerStats.ChangeAmountMana(-Cost * Time.deltaTime);
+        playerController.OnCharging();
+        skillData.StatisticsHolder.ChangeAmountMana(-Cost * Time.deltaTime);
     }
     public override void ReleaseCharge()
     {
-        base.ReleaseCharge();
-        Vector3 position = GameplayManager.Instance.Player.transform.position;
+        Vector3 position = playerController.transform.position;
         position += new Vector3(0, 0.5f, 0);// fix y position
         ExplosionController exposionController = Instantiate(ExplosionPrefab);
         exposionController.SetParams(this);
@@ -49,7 +54,7 @@ public class SkillExplosion : Skill
     private void CreateVFXInstance()
     {
         currentChargeVFX = Instantiate(ChargeVFXPrefab);
-        currentChargeVFX.transform.SetParent(GameplayManager.Instance.Player.transform);
+        currentChargeVFX.transform.SetParent(playerController.transform);
         currentChargeVFX.transform.localPosition = new Vector3(0, 0.75f, 0);
     }
     private void ChangeChargeVRXParams(float rate, Vector2 sizeMinMax)

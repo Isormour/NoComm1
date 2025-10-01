@@ -15,7 +15,7 @@ public class UIPlayerPanelSkills : UIPlayerControl
         {
             for (int i = 0; i < controller.skillSlots.Length; i++)
             {
-                SkillSLot currentSlot = controller.skillSlots[i];
+                SkillSlot currentSlot = controller.skillSlots[i];
                 bool isMouseKey = item.KeyCode == KeyCode.None;
                 bool sameKey = item.KeyCode == currentSlot.pressKeyCode;
 

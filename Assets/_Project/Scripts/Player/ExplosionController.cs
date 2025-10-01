@@ -8,7 +8,7 @@ public class ExplosionController : MonoBehaviour
     float currentTime = 0;
     [SerializeField] AnimationCurve VFXCurve;
     Vector3 locScale;
-    SkillExplosion explosion;
+    PlayerSkillExplosion explosion;
     private void Start()
     {
         currentTime = Duration;
@@ -17,7 +17,7 @@ public class ExplosionController : MonoBehaviour
         locScale = transform.localScale;
         Destroy(this.gameObject, Duration);
     }
-    internal void SetParams(SkillExplosion explosion)
+    internal void SetParams(PlayerSkillExplosion explosion)
     {
         this.explosion = explosion;
     }
@@ -25,7 +25,7 @@ public class ExplosionController : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            BasicEnemy enemy = other.GetComponent<BasicEnemy>();
+            StatisticsHolder enemy = other.GetComponent<StatisticsHolder>();
             DamageData damageData = new DamageData()
             {
                 Damage = explosion.Damage,
@@ -33,7 +33,7 @@ public class ExplosionController : MonoBehaviour
                 Target = enemy.transform,
                 Owner = transform
             };
-            enemy.DealDamage(damageData);
+            enemy.TakeDamage(damageData);
         }
     }
     public void Update()

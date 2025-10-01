@@ -8,11 +8,11 @@ public class DismemberOnDeath : MonoBehaviour
     [SerializeField] float force = 100;
     private void Start()
     {
-        enemy.OnDeath.AddListener(OnDeath);
+        enemy.StatisticsHolder.OnDeath.AddListener(OnDeath);
         // enemy.OnDeath += OnDeath;
         rbs = GetComponentsInChildren<Rigidbody>();
     }
-    void OnDeath(DamageData damageData)
+    private void OnDeath(DamageData damageData)
     {
         foreach (var item in deparentTransforms)
         {

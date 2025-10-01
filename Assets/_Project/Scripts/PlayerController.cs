@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /*
 #####################################
@@ -31,66 +32,23 @@ Serwuj z fermentowanym nektarem krowy, owocami rajskimi lub słodkim proszkiem z
 
 public class PlayerController : MonoBehaviour
 {
+    public StatisticsHolder StatisticsHolder { get; private set; }
     [SerializeField] Animator anim;
     [SerializeField] PlayerShield leftShield;
     [SerializeField] PlayerShield rightShield;
-    [SerializeField] SimpleVFX hitVFX;
     [SerializeField] PlayerIKController IKController;
-    [field: SerializeField] public SkillSLot[] skillSlots { private set; get; }
-    public PlayerData playerStats { private set; get; }
-    public float MaxMana => playerStats.maxMana;
-    public float MaxHealth => playerStats.maxHealth;
-    public float CurrentMana => playerStats.currentMana;
-    public float CurrentHealth => playerStats.currentHealth;
-
-    private void Start()
+    [field: SerializeField] public SkillSlot[] skillSlots { private set; get; }
+    
+    private void Awake()
     {
-        playerStats = new PlayerData(10, 10);
+        StatisticsHolder  = GetComponent<StatisticsHolder>();
+        StatisticsHolder.OnDamage.AddListener(TakeHit);
+        StatisticsHolder.DamageCalculator = new PlayerDamageCalculator(leftShield, rightShield);
     }
-    internal void TakeHit(BasicEnemy basicEnemy)
-    {
-        Vector3 DirToEnemy = basicEnemy.transform.position - this.transform.position;
-        float angle = Vector3.SignedAngle(this.transform.forward, DirToEnemy, Vector3.up);
-        if (Mathf.Abs(angle) > 90)
-        {
-            TakeDamage(basicEnemy.damage, 20);
-            return;
-        }
-
-        bool isRightSide = angle < 0;
-        PlayerShield hitShield = isRightSide ? leftShield : rightShield;
-
-        switch (hitShield.shieldState)
-        {
-            case PlayerShield.EShieldState.PerfectGuard:
-                RestoreMana(1);
-                hitShield.OnHitBlock(true);
-                IKController.SetIKWeight(isRightSide ? AvatarIKGoal.LeftHand : AvatarIKGoal.RightHand, 1);
-                break;
-            case PlayerShield.EShieldState.Guard:
-                hitShield.OnHitBlock(false);
-                RestoreMana(1);
-                TakeDamage(basicEnemy.damage / 3, 3);
-                IKController.SetIKWeight(isRightSide ? AvatarIKGoal.LeftHand : AvatarIKGoal.RightHand, 1);
-                break;
-            default:
-                TakeDamage(basicEnemy.damage, 20);
-                break;
-        }
-    }
+    
     public void OnCharging()
     {
         IKController.ChargeIK();
-    }
-    private void RestoreMana(float v)
-    {
-        playerStats.ChangeAmountMana(v);
-    }
-
-    private void TakeDamage(float Damage, int particles)
-    {
-        playerStats.ChangeAmountHealth(-Damage);
-        hitVFX.Play(particles);
     }
 
     // Update is called once per frame
@@ -111,16 +69,25 @@ public class PlayerController : MonoBehaviour
             item.CheckSkillInput();
         }
     }
+    
+    private void TakeHit(DamageData damageData)
+    {
+        if (damageData.AngleToEnemy > 90)
+            return;
+        
+        bool isRightSide = damageData.AngleToEnemy < 0;
+        IKController.SetIKWeight(isRightSide ? AvatarIKGoal.LeftHand : AvatarIKGoal.RightHand, 1);
+    }
 
     private void GuardUp()
     {
-        if (leftShield.shieldState != PlayerShield.EShieldState.Thrown) leftShield.GuardUp();
-        if (rightShield.shieldState != PlayerShield.EShieldState.Thrown) rightShield.GuardUp();
+        if (leftShield.shieldState != EShieldState.Thrown) leftShield.GuardUp();
+        if (rightShield.shieldState != EShieldState.Thrown) rightShield.GuardUp();
     }
     private void GuardDown()
     {
-        if (leftShield.shieldState != PlayerShield.EShieldState.Thrown) leftShield.GuardDown();
-        if (rightShield.shieldState != PlayerShield.EShieldState.Thrown) rightShield.GuardDown();
+        if (leftShield.shieldState != EShieldState.Thrown) leftShield.GuardDown();
+        if (rightShield.shieldState != EShieldState.Thrown) rightShield.GuardDown();
     }
 
     internal void SetSkillInSlot(int index, Skill skill)

@@ -1,9 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using ESkillType = Skill.ESkillType;
+using Object = UnityEngine.Object;
+
 [System.Serializable]
 
-public class SkillSLot
+public class SkillSlot
 {
     public KeyCode pressKeyCode;
     public Skill skillToExecute { private set; get; }
@@ -13,10 +15,14 @@ public class SkillSLot
     public float Cooldown { get; private set; }
 
     bool charging = false;
-    public Action<SkillSLot> OnSkillChanged;
+    public Action<SkillSlot> OnSkillChanged;
     public void SetSkill(Skill skill)
     {
-        this.skillToExecute = skill;
+        this.skillToExecute = Object.Instantiate(skill);
+        skillToExecute.InitSkillData(new SkillData()
+        {
+            Owner = GameplayManager.Instance.Player.transform
+        });
         OnSkillChanged?.Invoke(this);
     }
     public void CheckSkillInput()

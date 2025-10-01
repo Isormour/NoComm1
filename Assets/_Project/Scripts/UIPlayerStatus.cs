@@ -16,8 +16,8 @@ public class UIPlayerStatus : UIPlayerControl
     // Update is called once per frame
     void Update()
     {
-        float healthNormalized = controller.CurrentHealth / controller.MaxHealth;
-        float manaNormalized = controller.CurrentMana / controller.MaxMana;
+        float healthNormalized = controller.StatisticsHolder.currentPercentHealth;
+        float manaNormalized = controller.StatisticsHolder.currentPercentMana;
 
         currentScaleMana = Mathf.Lerp(currentScaleMana, manaNormalized, lerpSpeed * Time.deltaTime);
         currentScaleHealth = Mathf.Lerp(currentScaleHealth, healthNormalized, lerpSpeed * Time.deltaTime);

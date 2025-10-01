@@ -32,16 +32,12 @@ kt�ry zna sekrety burz Ba�tyku.
  */
 public class BasicEnemy : MonoBehaviour
 {
+    public StatisticsHolder StatisticsHolder { get; private set; }
     [SerializeField] PlayerController player;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] float range;
-    [SerializeField] float maxHealth;
-    float currentHealth;
-    [field: SerializeField] public float damage { private set; get; } = 1;
-
-    public UnityEvent<DamageData>OnDeath;
-    // public Action<BasicEnemy, Vector3, float> OnDeath;
+    
     enum EAIState
     {
         None,
@@ -50,9 +46,15 @@ public class BasicEnemy : MonoBehaviour
     }
 
     EAIState aiState;
+
+    private void Awake()
+    {
+        StatisticsHolder = GetComponent<StatisticsHolder>();
+        StatisticsHolder.OnDeath.AddListener(OnDeath);
+    }
+
     void Start()
     {
-        currentHealth = maxHealth;
         aiState = EAIState.Chase;
         player = GameplayManager.Instance.Player;
     }
@@ -81,8 +83,17 @@ public class BasicEnemy : MonoBehaviour
     void Hit()
     {
         float dist = Vector3.Distance(player.transform.position, this.transform.position);
-        if (dist < range)
-            player.TakeHit(this);
+        if (dist > range)
+            return;
+        var damageData = new DamageData()
+        {
+            Owner = transform,
+            Damage = StatisticsHolder.Damage,
+            Particles = 0,
+            DamageSourcePosition = transform.position,
+            Target = player.transform
+        };
+        player.StatisticsHolder.TakeDamage(damageData);
     }
 
     public void OnAttackEnd()
@@ -111,16 +122,11 @@ public class BasicEnemy : MonoBehaviour
         agent.SetDestination(player.transform.localPosition);
 
     }
-    internal void DealDamage(DamageData damageData)
+
+    private void OnDeath(DamageData damageData)
     {
-        currentHealth -= damage;
-        if (currentHealth < 0)
-        {
-            agent.enabled = false;
-            anim.enabled = false;
-            OnDeath.Invoke(damageData);
-            // OnDeath?.Invoke(this, damageData.DamageSourcePosition, damageData.Damage);
-            this.enabled = false;
-        }
+        agent.enabled = false;
+        anim.enabled = false;
+        this.enabled = false;
     }
 }

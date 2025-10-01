@@ -2,13 +2,7 @@ using UnityEngine;
 
 public class PlayerShield : MonoBehaviour
 {
-    public enum EShieldState
-    {
-        None = 0,
-        PerfectGuard,
-        Guard,
-        Thrown
-    }
+
     public EShieldState shieldState { private set; get; } = EShieldState.None;
 
     [SerializeField]
