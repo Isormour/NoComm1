@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Skill", menuName = "Player/Skill/ThrowShield", order = 1)]
-public class SkillThrowShield : Skill
+[CreateAssetMenu(fileName = "Skill", menuName = "Player/Skill/Heal", order = 1)]
+public class SkillHeal : Skill
 {
     public override void Execute()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void StartCharge()

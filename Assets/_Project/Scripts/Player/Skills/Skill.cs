@@ -21,20 +21,9 @@ public abstract class Skill : ScriptableObject
         SkillData = skillData;
     }
 
-    public virtual void Execute()
-    {
+    public abstract void Execute();
 
-    }
-    public virtual void StartCharge()
-    {
-
-    }
-    public virtual void UpdateCharge()
-    {
-
-    }
-    public virtual void ReleaseCharge()
-    {
-
-    }
+    public abstract void StartCharge();
+    public abstract void UpdateCharge();
+    public abstract void ReleaseCharge();
 }

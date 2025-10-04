@@ -1,4 +1,5 @@
 ﻿using System;
+using StarterAssets;
 using UnityEngine;
 
 /*
@@ -39,11 +40,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerIKController IKController;
     [field: SerializeField] public SkillSlot[] skillSlots { private set; get; }
     
+    private MoveInputReceiver moveInputReceiver;
+    
     private void Awake()
     {
         StatisticsHolder  = GetComponent<StatisticsHolder>();
         StatisticsHolder.OnDamage.AddListener(TakeHit);
         StatisticsHolder.DamageCalculator = new PlayerDamageCalculator(leftShield, rightShield);
+        moveInputReceiver  = GetComponent<MoveInputReceiver>();
     }
     
     public void OnCharging()
@@ -54,19 +58,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (moveInputReceiver.isPressedShield)
         {
             anim.SetTrigger("StartGuard");
             GuardUp();
         }
-        if (Input.GetKeyUp(KeyCode.E))
+        else
         {
             anim.SetTrigger("EndGuard");
             GuardDown();
-        }
-        foreach (var item in skillSlots)
-        {
-            item.CheckSkillInput();
         }
     }
     
@@ -81,17 +81,12 @@ public class PlayerController : MonoBehaviour
 
     private void GuardUp()
     {
-        if (leftShield.shieldState != EShieldState.Thrown) leftShield.GuardUp();
-        if (rightShield.shieldState != EShieldState.Thrown) rightShield.GuardUp();
+        leftShield.GuardUp();
+        rightShield.GuardUp();
     }
     private void GuardDown()
     {
-        if (leftShield.shieldState != EShieldState.Thrown) leftShield.GuardDown();
-        if (rightShield.shieldState != EShieldState.Thrown) rightShield.GuardDown();
-    }
-
-    internal void SetSkillInSlot(int index, Skill skill)
-    {
-        skillSlots[index].SetSkill(skill);
+        leftShield.GuardDown();
+        rightShield.GuardDown();
     }
 }

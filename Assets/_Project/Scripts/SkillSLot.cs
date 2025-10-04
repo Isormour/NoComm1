@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts.Character;
 using UnityEngine;
 using ESkillType = Skill.ESkillType;
 using Object = UnityEngine.Object;
@@ -7,85 +8,83 @@ using Object = UnityEngine.Object;
 
 public class SkillSlot
 {
-    public KeyCode pressKeyCode;
-    public Skill skillToExecute { private set; get; }
-    public int mouseButton = -1;
-
+    [field: SerializeField] public Skill SkillToExecute { private set; get; }
     public float CooldownPrecent { get; private set; }
     public float Cooldown { get; private set; }
 
     bool charging = false;
     public Action<SkillSlot> OnSkillChanged;
+
+    private bool inputState = false;
+    private SkillsController skillsController;
+
+    public void UpdateInputState(bool inputState)
+    {
+        this.inputState = inputState;
+    }
+
+    public void InitSkillsController(SkillsController skillsController)
+    {
+        this.skillsController = skillsController;
+        SetSkill(SkillToExecute);
+    }
+    
     public void SetSkill(Skill skill)
     {
-        this.skillToExecute = Object.Instantiate(skill);
-        skillToExecute.InitSkillData(new SkillData()
+        SkillToExecute = Object.Instantiate(skill);
+        SkillToExecute.InitSkillData(new SkillData()
         {
-            Owner = GameplayManager.Instance.Player.transform
+            Owner = skillsController,
         });
         OnSkillChanged?.Invoke(this);
     }
     public void CheckSkillInput()
     {
-        if (skillToExecute == null) return;
+        if (SkillToExecute == null) return;
 
         if (Cooldown > 0)
         {
             Cooldown -= Time.deltaTime;
-            CooldownPrecent = Cooldown / skillToExecute.CooldownTime;
+            CooldownPrecent = Cooldown / SkillToExecute.CooldownTime;
             return;
         }
 
         Cooldown = 0;
         CooldownPrecent = 0;
 
-        if (mouseButton < 0)
+        if (inputState)
         {
-            if (Input.GetKeyDown(pressKeyCode))
-            {
-                OnKeyDown();
-            }
-            if (Input.GetKeyUp(pressKeyCode))
-            {
-                OnKeyUp();
-            }
+            OnKeyDown();
         }
         else
         {
-            if (Input.GetMouseButtonDown(mouseButton))
-            {
-                OnKeyDown();
-            }
-            if (Input.GetMouseButtonUp(mouseButton))
-            {
-                OnKeyUp();
-            }
+            OnKeyUp();
         }
 
-        if (skillToExecute.skilltype == ESkillType.Charge && charging)
+        if (SkillToExecute.skilltype == ESkillType.Charge && charging)
         {
-            skillToExecute.UpdateCharge();
+            SkillToExecute.UpdateCharge();
         }
     }
 
     private void OnKeyUp()
     {
-        if (skillToExecute.skilltype != ESkillType.Charge)
+        if (SkillToExecute.skilltype != ESkillType.Charge)
             return;
-        Cooldown = skillToExecute.CooldownTime;
-        skillToExecute.ReleaseCharge();
+        Cooldown = SkillToExecute.CooldownTime;
+        SkillToExecute.ReleaseCharge();
         charging = false;
     }
 
     private void OnKeyDown()
     {
-        if (skillToExecute.skilltype == ESkillType.Instant)
+        if (SkillToExecute.skilltype == ESkillType.Instant)
         {
-            Cooldown = skillToExecute.CooldownTime;
-            skillToExecute.Execute();
+            Cooldown = SkillToExecute.CooldownTime;
+            SkillToExecute.Execute();
             return;
         }
         charging = true;
-        skillToExecute.StartCharge();
+        SkillToExecute.StartCharge();
     }
 }

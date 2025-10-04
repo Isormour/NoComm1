@@ -33,10 +33,11 @@ kt�ry zna sekrety burz Ba�tyku.
 public class BasicEnemy : MonoBehaviour
 {
     public StatisticsHolder StatisticsHolder { get; private set; }
-    [SerializeField] PlayerController player;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] float range;
+
+    private Transform chasingTarget;
     
     enum EAIState
     {
@@ -56,7 +57,6 @@ public class BasicEnemy : MonoBehaviour
     void Start()
     {
         aiState = EAIState.Chase;
-        player = GameplayManager.Instance.Player;
     }
     void ChangeAIState(EAIState state)
     {
@@ -70,7 +70,7 @@ public class BasicEnemy : MonoBehaviour
                 anim.SetBool("Attack", false);
                 break;
             case EAIState.Attack:
-                agent.SetDestination(this.transform.position);
+                agent.SetDestination(transform.position);
                 anim.SetBool("Run", false);
                 anim.SetBool("Attack", true);
                 break;
@@ -80,9 +80,9 @@ public class BasicEnemy : MonoBehaviour
     }
 
     // Sends from animation event on hitAnimation
-    void Hit()
+    private void Hit()
     {
-        float dist = Vector3.Distance(player.transform.position, this.transform.position);
+        float dist = Vector3.Distance(chasingTarget.position, this.transform.position);
         if (dist > range)
             return;
         var damageData = new DamageData()
@@ -91,9 +91,10 @@ public class BasicEnemy : MonoBehaviour
             Damage = StatisticsHolder.Damage,
             Particles = 0,
             DamageSourcePosition = transform.position,
-            Target = player.transform
+            Target = chasingTarget
         };
-        player.StatisticsHolder.TakeDamage(damageData);
+        var player = chasingTarget.GetComponent<StatisticsHolder>();
+        player.TakeDamage(damageData);
     }
 
     public void OnAttackEnd()
@@ -112,14 +113,16 @@ public class BasicEnemy : MonoBehaviour
         }
         if (aiState == EAIState.Attack)
         {
-            Vector3 lookPos = player.transform.position;
+            Vector3 lookPos = chasingTarget.position;
             lookPos.y = this.transform.position.y;
             this.transform.LookAt(lookPos);
         }
     }
-    void Chase()
+    private void Chase()
     {
-        agent.SetDestination(player.transform.localPosition);
+        if (chasingTarget == null)
+            return;
+        agent.SetDestination(chasingTarget.position);
 
     }
 

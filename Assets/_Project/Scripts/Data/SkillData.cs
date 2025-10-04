@@ -1,8 +1,9 @@
+using _Project.Scripts.Character;
 using UnityEngine;
 
 public class SkillData
 {
-    public Transform Owner;
+    public SkillsController Owner;
 
     public StatisticsHolder StatisticsHolder
     {

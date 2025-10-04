@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts.Character;
 using NUnit.Framework.Internal.Filters;
 using UnityEngine;
 using UnityEngine.Events;

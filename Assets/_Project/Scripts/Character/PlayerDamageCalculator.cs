@@ -1,3 +1,4 @@
+using _Project.Scripts.Character;
 using UnityEngine;
 
 public class PlayerDamageCalculator : DamageCalculator

@@ -19,6 +19,15 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+
+		public bool isPressedAttack1 = false;
+		public bool isPressedAttack2 = false;
+		public bool isPressedSkill1 = false;
+		public bool isPressedSkill2 = false;
+		public bool isPressedSkill3 = false;
+		public bool isPressedSkill4 = false;
+		public bool isPressedInterract = false;
+		public bool isPressedShield = false;
 		
 		public void MoveInput(Vector2 newMoveDirection)
 		{
@@ -41,6 +50,46 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 
+		public void SetPressedAttack1(bool value)
+		{
+			isPressedAttack1  = value;
+		}
+
+		public void SetPressedAttack2(bool value)
+		{
+			isPressedAttack2 = value;
+		}
+
+		public void SetPressedSkill1(bool value)
+		{
+			isPressedSkill1 = value;
+		}
+
+		public void SetPressedSkill2(bool value)
+		{
+			isPressedSkill2 = value;
+		}
+
+		public void SetPressedSkill3(bool value)
+		{
+			isPressedSkill3 = value;
+		}
+
+		public void SetPressedSkill4(bool value)
+		{
+			isPressedSkill4 = value;
+		}
+
+		public void SetPressedInterract(bool value)
+		{
+			isPressedInterract = value;
+		}
+
+		public void SetPressedShield(bool value)
+		{
+			isPressedShield = value;
+		}
+		
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);

@@ -19,9 +19,13 @@ public class PlayerSkillExplosion : Skill
         playerController = skillData.Owner.GetComponent<PlayerController>();
     }
 
+    public override void Execute()
+    {
+        
+    }
+
     public override void StartCharge()
     {
-        base.StartCharge();
         chargeValue = 0;
         if (currentChargeVFX == null)
         {

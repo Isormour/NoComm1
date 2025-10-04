@@ -1,9 +1,10 @@
-using UnityEngine;
-
-public class DamageCalculator
+namespace _Project.Scripts.Character
 {
-    public virtual DamageData CalculateDamage(DamageData damageData)
+    public class DamageCalculator
     {
-        return damageData;
+        public virtual DamageData CalculateDamage(DamageData damageData)
+        {
+            return damageData;
+        }
     }
 }

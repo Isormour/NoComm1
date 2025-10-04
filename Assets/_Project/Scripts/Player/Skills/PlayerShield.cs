@@ -11,11 +11,7 @@ public class PlayerShield : MonoBehaviour
 
     [SerializeField] SimpleVFX perfectHitVFX;
     [SerializeField] SimpleVFX HitVFX;
-    public void GuardUp()
-    {
-        shieldState = EShieldState.PerfectGuard;
-        guardTime = perfectGuardTime;
-    }
+
     private void Update()
     {
         if (shieldState == EShieldState.PerfectGuard)
@@ -41,9 +37,18 @@ public class PlayerShield : MonoBehaviour
             HitVFX.Play();
         }
     }
-
-    internal void GuardDown()
+    
+    public void GuardUp()
     {
+        if (shieldState == EShieldState.Thrown)
+            return;
+        shieldState = EShieldState.PerfectGuard;
+        guardTime = perfectGuardTime;
+    }
+    public void GuardDown()
+    {
+        if (shieldState == EShieldState.Thrown)
+            return;
         shieldState = EShieldState.None;
     }
 }

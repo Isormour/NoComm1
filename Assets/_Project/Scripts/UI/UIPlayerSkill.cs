@@ -20,24 +20,12 @@ public class UIPlayerSkill : MonoBehaviour
         timeSprite.fillAmount = skillSlot.CooldownPrecent;
         var cooldownTime = skillSlot.Cooldown;
         timeText.text = cooldownTime > 0 ? skillSlot.Cooldown.ToString("0.0") : "";
+        icon.sprite = skillSlot.SkillToExecute.Icon;
     }
 
     public void SetSlot(SkillSlot slot)
     {
         skillSlot = slot;
-        skillSlot.OnSkillChanged = OnSkillChanged;
-        UpdateIcon(slot);
 
-    }
-
-    void OnSkillChanged(SkillSlot slot)
-    {
-        UpdateIcon(slot);
-
-    }
-    private void UpdateIcon(SkillSlot slot)
-    {
-        if (slot.skillToExecute == null) return;
-        icon.sprite = slot.skillToExecute.Icon;
     }
 }
