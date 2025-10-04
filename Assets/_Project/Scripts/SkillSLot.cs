@@ -11,10 +11,11 @@ public class SkillSlot
     [field: SerializeField] public Skill SkillToExecute { private set; get; }
     public float CooldownPrecent { get; private set; }
     public float Cooldown { get; private set; }
-
-    bool charging = false;
+    
+    private bool charging = false;
     public Action<SkillSlot> OnSkillChanged;
 
+    private bool previousInputState = false;
     private bool inputState = false;
     private SkillsController skillsController;
 
@@ -26,6 +27,8 @@ public class SkillSlot
     public void InitSkillsController(SkillsController skillsController)
     {
         this.skillsController = skillsController;
+        if (SkillToExecute == null)
+            return;
         SetSkill(SkillToExecute);
     }
     
@@ -52,13 +55,17 @@ public class SkillSlot
         Cooldown = 0;
         CooldownPrecent = 0;
 
-        if (inputState)
+        if (previousInputState != inputState)
         {
-            OnKeyDown();
-        }
-        else
-        {
-            OnKeyUp();
+            previousInputState = inputState;
+            if (inputState)
+            {
+                OnKeyDown();
+            }
+            else
+            {
+                OnKeyUp();
+            }
         }
 
         if (SkillToExecute.skilltype == ESkillType.Charge && charging)

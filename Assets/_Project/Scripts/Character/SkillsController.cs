@@ -17,6 +17,12 @@ namespace _Project.Scripts.Character
         {
             statisticsHolder = GetComponent<StatisticsHolder>();
             inputReceiver =  GetComponent<MoveInputReceiver>();
+            attack1.InitSkillsController(this);
+            attack2.InitSkillsController(this);
+            for (int i = 0; i < skillSlots.Length; i++)
+            {
+                skillSlots[i].InitSkillsController(this);
+            }
         }
 
         private void Update()
