@@ -799,6 +799,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1916913257658675240, guid: ac0fedabf03e5d545b2aea17d47b55bf, type: 3}
+      propertyPath: leftMouseSkill
+      value: 
+      objectReference: {fileID: 2588926384727554345}
+    - target: {fileID: 1916913257658675240, guid: ac0fedabf03e5d545b2aea17d47b55bf, type: 3}
+      propertyPath: rightMouseSkill
+      value: 
+      objectReference: {fileID: 49180406901985811}
+    - target: {fileID: 1916913257658675240, guid: ac0fedabf03e5d545b2aea17d47b55bf, type: 3}
+      propertyPath: skills.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2366513014983212122, guid: ac0fedabf03e5d545b2aea17d47b55bf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -952,6 +964,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac0fedabf03e5d545b2aea17d47b55bf, type: 3}
+--- !u!114 &49180406901985811 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 860697891297085728, guid: ac0fedabf03e5d545b2aea17d47b55bf, type: 3}
+  m_PrefabInstance: {fileID: 819489646269274931}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b610893119784bbc20ac1822bbc9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &2588926384727554345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2932652225550344730, guid: ac0fedabf03e5d545b2aea17d47b55bf, type: 3}
+  m_PrefabInstance: {fileID: 819489646269274931}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b610893119784bbc20ac1822bbc9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!224 &8840072907272124998 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8210438176162963829, guid: ac0fedabf03e5d545b2aea17d47b55bf, type: 3}
