@@ -27,6 +27,7 @@ namespace _Project.Scripts.Character
             SetSkillInput(inputReceiver.isPressedSkill2, 1);
             SetSkillInput(inputReceiver.isPressedSkill3, 2);
             SetSkillInput(inputReceiver.isPressedSkill4, 3);
+            CheckSkillsInput();
         }
 
         private void SetAttack1(bool value)

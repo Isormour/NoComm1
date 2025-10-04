@@ -753,6 +753,18 @@ PrefabInstance:
       propertyPath: _playerInput
       value: 
       objectReference: {fileID: 1400050089}
+    - target: {fileID: 4977893564865328830, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: <skillSlots>k__BackingField.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4977893564865328830, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: <skillSlots>k__BackingField.Array.data[0].<SkillToExecute>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 50031a552ee8074419f2ed3c5f4d586e, type: 2}
+    - target: {fileID: 4977893564865328830, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: <skillSlots>k__BackingField.Array.data[1].<SkillToExecute>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 0def7cbc9571cf941b0dac9c0219689b, type: 2}
     - target: {fileID: 6495046466246262543, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: maxMana
       value: 100
@@ -1331,8 +1343,8 @@ MonoBehaviour:
   attack2:
     <SkillToExecute>k__BackingField: {fileID: 0}
   skillSlots:
-  - <SkillToExecute>k__BackingField: {fileID: 0}
-  - <SkillToExecute>k__BackingField: {fileID: 0}
+  - <SkillToExecute>k__BackingField: {fileID: 11400000, guid: 50031a552ee8074419f2ed3c5f4d586e, type: 2}
+  - <SkillToExecute>k__BackingField: {fileID: 11400000, guid: 0def7cbc9571cf941b0dac9c0219689b, type: 2}
   - <SkillToExecute>k__BackingField: {fileID: 0}
   - <SkillToExecute>k__BackingField: {fileID: 0}
   - <SkillToExecute>k__BackingField: {fileID: 0}
@@ -1470,9 +1482,97 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 633861809040460883, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 633861809040460883, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 633861809040460883, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912895642871223371, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912895642871223371, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912895642871223371, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912895642871223371, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1858815214133767429, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
       propertyPath: m_Name
       value: PlayerStatus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137006118385231721, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137006118385231721, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137006118385231721, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137006118385231721, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3577596451715407480, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3577596451715407480, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3577596451715407480, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3577596451715407480, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6781801163710517565, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6781801163710517565, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6781801163710517565, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779210146532883756, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779210146532883756, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779210146532883756, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779210146532883756, guid: fa34adc62024d4e4abf9d51e562dac89, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

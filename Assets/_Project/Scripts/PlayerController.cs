@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerShield leftShield;
     [SerializeField] PlayerShield rightShield;
     [SerializeField] PlayerIKController IKController;
-    [field: SerializeField] public SkillSlot[] skillSlots { private set; get; }
     
     private MoveInputReceiver moveInputReceiver;
     
