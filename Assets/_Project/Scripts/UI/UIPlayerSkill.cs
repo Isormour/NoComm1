@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class UIPlayerSkill : MonoBehaviour
 {
+    [SerializeField] private Color cooldownColor;
+    [SerializeField] private Color notAvailableColor;
+    [SerializeField] private Color noManaColor;
+    
     [SerializeField] Image icon;
 
     [SerializeField] private Image timeSprite;
@@ -20,6 +24,15 @@ public class UIPlayerSkill : MonoBehaviour
             return;
         }
 
+        if (!skillSlot.HasEnoughMana())
+        {
+            timeSprite.fillAmount = 1;
+            timeSprite.color = noManaColor;
+            timeText.text = "";
+            return;
+        }
+
+        timeSprite.color = cooldownColor;
         timeSprite.fillAmount = skillSlot.CooldownPrecent;
         var cooldownTime = skillSlot.Cooldown;
         timeText.text = cooldownTime > 0 ? skillSlot.Cooldown.ToString("0.0") : "";
@@ -29,6 +42,5 @@ public class UIPlayerSkill : MonoBehaviour
     public void SetSlot(SkillSlot slot)
     {
         skillSlot = slot;
-
     }
 }

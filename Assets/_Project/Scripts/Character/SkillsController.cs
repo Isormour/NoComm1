@@ -9,6 +9,7 @@ namespace _Project.Scripts.Character
         public SkillSlot Attack1 => attack1;
         public SkillSlot Attack2 => attack2;
         public SkillSlot[] SkillSlots => skillSlots;
+        public StatisticsHolder  StatisticsHolder => statisticsHolder;
         [SerializeField] private SkillSlot attack1;
         [SerializeField] private SkillSlot attack2;
         [SerializeField] private SkillSlot[] skillSlots;

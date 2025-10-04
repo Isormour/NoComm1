@@ -4,6 +4,7 @@ using UnityEngine;
 public class SkillData
 {
     public SkillsController Owner;
+    public SkillSlot SkillSlot;
 
     public StatisticsHolder StatisticsHolder
     {

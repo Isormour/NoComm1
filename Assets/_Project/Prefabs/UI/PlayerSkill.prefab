@@ -50,9 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1b610893119784bbc20ac1822bbc9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  cooldownColor: {r: 0, g: 0, b: 0, a: 0.70980394}
+  notAvailableColor: {r: 1, g: 0, b: 0, a: 0.70980394}
+  noManaColor: {r: 0, g: 0.9411802, b: 1, a: 0.70980394}
   icon: {fileID: 5167975208210256020}
-  <KeyCode>k__BackingField: 0
-  <MouseButton>k__BackingField: -1
   timeSprite: {fileID: 4332474156933501395}
   timeText: {fileID: 1347014869559064633}
 --- !u!1 &1892891192610927263

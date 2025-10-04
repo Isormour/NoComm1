@@ -38,6 +38,7 @@ public class SkillSlot
         SkillToExecute.InitSkillData(new SkillData()
         {
             Owner = skillsController,
+            SkillSlot = this
         });
         OnSkillChanged?.Invoke(this);
     }
@@ -51,7 +52,7 @@ public class SkillSlot
             CooldownPrecent = Cooldown / SkillToExecute.CooldownTime;
             return;
         }
-
+        
         Cooldown = 0;
         CooldownPrecent = 0;
 
@@ -74,6 +75,12 @@ public class SkillSlot
         }
     }
 
+    public bool HasEnoughMana()
+    {
+        if (SkillToExecute == null)
+            return false;
+        return SkillToExecute.Cost < skillsController.StatisticsHolder.currentMana;
+    }
     private void OnKeyUp()
     {
         if (SkillToExecute.skilltype != ESkillType.Charge)

@@ -37,10 +37,13 @@ public class StatisticsHolder : MonoBehaviour
         EShieldState = shieldState;
     }
 
-    internal void ChangeAmountMana(float v)
+    internal bool ChangeAmountMana(float v)
     {
+        if (currentMana < v)
+            return false;
         currentMana += v;
         currentMana = Mathf.Clamp(currentMana, 0, maxMana);
+        return true;
     }
 
     internal void ChangeAmountHealth(float v)

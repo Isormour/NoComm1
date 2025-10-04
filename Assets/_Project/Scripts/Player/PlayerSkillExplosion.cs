@@ -44,7 +44,10 @@ public class PlayerSkillExplosion : Skill
         ChangeChargeVRXParams(100 * chargeValue, new Vector2(min, max));
 
         playerController.OnCharging();
-        SkillData.StatisticsHolder.ChangeAmountMana(-Cost * Time.deltaTime);
+        if (!SkillData.StatisticsHolder.ChangeAmountMana(-Cost * Time.deltaTime))
+        {
+            SkillData.SkillSlot.UpdateInputState(false);
+        }
     }
     public override void ReleaseCharge()
     {
