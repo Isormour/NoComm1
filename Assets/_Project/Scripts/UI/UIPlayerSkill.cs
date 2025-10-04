@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class UIPlayerSkill : MonoBehaviour
 {
     [SerializeField] Image icon;
-    [field: SerializeField] public KeyCode KeyCode { private set; get; }
-    [field: SerializeField] public int MouseButton { private set; get; } = -1;
 
     [SerializeField] private Image timeSprite;
     [SerializeField] private TextMeshProUGUI timeText;

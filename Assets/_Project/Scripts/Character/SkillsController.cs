@@ -6,6 +6,9 @@ namespace _Project.Scripts.Character
 {
     public class SkillsController : MonoBehaviour
     {
+        public SkillSlot Attack1 => attack1;
+        public SkillSlot Attack2 => attack2;
+        public SkillSlot[] SkillSlots => skillSlots;
         [SerializeField] private SkillSlot attack1;
         [SerializeField] private SkillSlot attack2;
         [SerializeField] private SkillSlot[] skillSlots;

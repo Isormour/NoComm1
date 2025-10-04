@@ -1,35 +1,29 @@
+using _Project.Scripts.Character;
 using UnityEngine;
 
 public class UIPlayerPanelSkills : UIPlayerControl
 {
-    [SerializeField] UIPlayerSkill[] skills;
+    [SerializeField] private UIPlayerSkill leftMouseSkill;
+    [SerializeField] private UIPlayerSkill rightMouseSkill;
+    [SerializeField] private UIPlayerSkill[] skills;
+
+    private SkillsController skillsController;
     public override void Initialize(PlayerController controller)
     {
         base.Initialize(controller);
-        // SetSkillsInSlots(controller);
+        skillsController = controller.GetComponent<SkillsController>();
+        SetSkillsInSlots();
     }
 
-    // private void SetSkillsInSlots(PlayerController controller)
-    // {
-    //     foreach (var item in skills)
-    //     {
-    //         for (int i = 0; i < controller.skillSlots.Length; i++)
-    //         {
-    //             SkillSlot currentSlot = controller.skillSlots[i];
-    //             bool isMouseKey = item.KeyCode == KeyCode.None;
-    //             bool sameKey = item.KeyCode == currentSlot.pressKeyCode;
-    //
-    //             if (sameKey && !isMouseKey)
-    //             {
-    //                 item.SetSlot(currentSlot);
-    //                 break;
-    //             }
-    //             sameKey = item.MouseButton == currentSlot.mouseButton;
-    //             if (sameKey && isMouseKey && item.MouseButton > -1)
-    //             {
-    //                 item.SetSlot(currentSlot);
-    //             }
-    //         }
-    //     }
-    // }
+    private void SetSkillsInSlots()
+    {
+        leftMouseSkill.SetSlot(skillsController.Attack1);
+        rightMouseSkill.SetSlot(skillsController.Attack2);
+        for (int i = 0; i < skills.Length; i++)
+        {
+            if (skillsController.SkillSlots.Length <= i)
+                return;
+            skills[i].SetSlot(skillsController.SkillSlots[i]);
+        }
+    }
 }
