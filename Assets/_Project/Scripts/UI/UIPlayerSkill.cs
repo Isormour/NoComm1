@@ -13,7 +13,7 @@ public class UIPlayerSkill : MonoBehaviour
 
     private void Update()
     {
-        if (skillSlot == null)
+        if (skillSlot == null || skillSlot.SkillToExecute == null)
             return;
         timeSprite.fillAmount = skillSlot.CooldownPrecent;
         var cooldownTime = skillSlot.Cooldown;
