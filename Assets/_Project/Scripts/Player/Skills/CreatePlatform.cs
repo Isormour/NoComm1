@@ -18,7 +18,7 @@ namespace _Project.Scripts.Player.Skills
         {
             spawnedPlatform = Instantiate(platform);
             spawnedPlatform.transform.position = CalculatedPoint();
-            spawnedPlatform.SetSelected(true);
+            //spawnedPlatform.SetSelected(true);
         }
 
         public override void UpdateCharge()
@@ -28,7 +28,8 @@ namespace _Project.Scripts.Player.Skills
 
         public override void ReleaseCharge()
         {
-            spawnedPlatform.SetSelected(false);
+            spawnedPlatform.InitPLatform();
+            //spawnedPlatform.SetSelected(false);
             spawnedPlatform = null;
             SkillData.StatisticsHolder.ChangeAmountMana(-Cost);
         }

@@ -46,7 +46,7 @@ public class PlayerSkillExplosion : Skill
         playerController.OnCharging();
         if (!SkillData.StatisticsHolder.ChangeAmountMana(-Cost * Time.deltaTime))
         {
-            SkillData.SkillSlot.UpdateInputState(false);
+            ReleaseCharge();
         }
     }
     public override void ReleaseCharge()
