@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using _Project.Scripts.Camera;
+using JetBrains.Annotations;
 using StarterAssets;
 using UnityEngine;
 
@@ -13,6 +15,7 @@ namespace _Project.Scripts.Player
         [SerializeField] private Material selectedMaterial;
         [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private Collider collider;
+        [SerializeField] private float platformSpeed = 5;
 
         private MoveInputReceiver moveInputReceiver;
         private MoveInputReceiver previousInputReceiver;
@@ -20,6 +23,13 @@ namespace _Project.Scripts.Player
 
         private float deltaDisolve = 0;
         private bool isActivePlatform = false;
+        private bool hasControll = false;
+
+        private List<Vector3> movingPoints = new List<Vector3>();
+        private bool isOverControl = false;
+        private int currentId = 0;
+        private float delta;
+        
 
         private void Awake()
         {
@@ -31,6 +41,14 @@ namespace _Project.Scripts.Player
         {
             UpdateMaterialState();
             UpdateInput();
+            if (isOverControl)
+            {
+                UpdateInput();
+            }
+            else
+            {
+                UpdateMoving();
+            }
         }
 
         public void TakeControl(MoveInputReceiver previousInputReceiver)
@@ -41,7 +59,10 @@ namespace _Project.Scripts.Player
             CameraManager.Instance.SetTarget(cameraObject);
             this.previousInputReceiver = previousInputReceiver;
             previousInputReceiver.ResetAllStates();
-            
+            movingPoints.Clear();
+            isOverControl = true;
+            currentId = 0;
+            movingPoints.Add(transform.position);
         }
 
         public void GiveUpControl()
@@ -50,11 +71,55 @@ namespace _Project.Scripts.Player
             CameraManager.Instance.SetTarget(previousInputReceiver.GetComponent<CameraObject>());
             previousInputReceiver = null;
             moveInputReceiver.ResetAllStates();
+            isOverControl = false;
+            movingPoints.Add(transform.position);
         }
 
         private void UpdateInput()
         {
+            float x, y, z;
+            x = GetOutput(moveInputReceiver.move.x < 0, moveInputReceiver.move.x > 0);
+            y = GetOutput(moveInputReceiver.sprint, moveInputReceiver.jump);
+            z = GetOutput(moveInputReceiver.move.y < 0, moveInputReceiver.move.y > 0);
+
+            if (moveInputReceiver.isPressedInterract)
+            {
+                GiveUpControl();
+                return;
+            }
             
+            transform.position += new Vector3(x, y, z) * (platformSpeed * Time.deltaTime);
+            delta += Time.deltaTime;
+            if (delta > 0.1f)
+            {
+                movingPoints.Add(transform.position);
+                delta = 0;
+            }
+        }
+
+        private float GetOutput(bool negative, bool positive)
+        {
+            if (negative && positive)
+                return 0;
+            if (negative)
+                return -1;
+
+            return 1;
+        }
+
+        private void UpdateMoving()
+        {
+            if (movingPoints.Count == 0)
+                return;
+            if (currentId > movingPoints.Count)
+                currentId = 0;
+
+            transform.position = Vector3.MoveTowards(transform.position, movingPoints[currentId],
+                platformSpeed * Time.deltaTime);
+            
+            var distance = Vector3.Distance(transform.position, movingPoints[currentId]);
+            if (distance < 0.1f)
+                currentId++;
         }
 
         private void UpdateMaterialState()
