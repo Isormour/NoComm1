@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 682523350813035883}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: LHandIK (1)
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
@@ -644,7 +644,9 @@ GameObject:
   - component: {fileID: 9154043847628164883}
   - component: {fileID: 5347883687310795616}
   - component: {fileID: 6495046466246262543}
-  m_Layer: 8
+  - component: {fileID: 631409443057702649}
+  - component: {fileID: 331960170305283207}
+  m_Layer: 9
   m_Name: PlayerArmature
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -802,6 +804,14 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
+  isPressedAttack1: 0
+  isPressedAttack2: 0
+  isPressedSkill1: 0
+  isPressedSkill2: 0
+  isPressedSkill3: 0
+  isPressedSkill4: 0
+  isPressedInterract: 0
+  isPressedShield: 0
 --- !u!114 &4977893564865328830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,19 +828,6 @@ MonoBehaviour:
   leftShield: {fileID: 5919266568019347962}
   rightShield: {fileID: 4933453521453669222}
   IKController: {fileID: 9154043847628164883}
-  <skillSlots>k__BackingField:
-  - pressKeyCode: 49
-    mouseButton: -1
-  - pressKeyCode: 50
-    mouseButton: -1
-  - pressKeyCode: 51
-    mouseButton: -1
-  - pressKeyCode: 52
-    mouseButton: -1
-  - pressKeyCode: 0
-    mouseButton: 0
-  - pressKeyCode: 0
-    mouseButton: 1
 --- !u!114 &9154043847628164883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,9 +910,45 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   hitVFX: {fileID: 4181267947147670698}
-  maxMana: 10
-  maxHealth: 10
+  maxMana: 100
+  maxHealth: 100
   damage: 1
+--- !u!114 &631409443057702649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6a3de9d77d16c46b052575bcea8d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Character.SkillsController
+  attack1:
+    <SkillToExecute>k__BackingField: {fileID: 0}
+  attack2:
+    <SkillToExecute>k__BackingField: {fileID: 0}
+  skillSlots:
+  - <SkillToExecute>k__BackingField: {fileID: 11400000, guid: 50031a552ee8074419f2ed3c5f4d586e, type: 2}
+  - <SkillToExecute>k__BackingField: {fileID: 11400000, guid: 0def7cbc9571cf941b0dac9c0219689b, type: 2}
+  - <SkillToExecute>k__BackingField: {fileID: 0}
+  - <SkillToExecute>k__BackingField: {fileID: 0}
+  - <SkillToExecute>k__BackingField: {fileID: 0}
+  - <SkillToExecute>k__BackingField: {fileID: 0}
+--- !u!114 &331960170305283207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f76f6d0db6f35744197b55f86986c726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Camera.CameraObject
+  <Target>k__BackingField: {fileID: 8338988566280778637}
 --- !u!1 &4802396776456247065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,7 +1213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1669457313560813667}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: RHandIK
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}

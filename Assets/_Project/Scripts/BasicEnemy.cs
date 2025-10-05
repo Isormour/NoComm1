@@ -67,6 +67,8 @@ public class BasicEnemy : MonoBehaviour
         switch (aiState)
         {
             case EAIState.None:
+                anim.SetBool("Run", false);
+                anim.SetBool("Attack", false);
                 break;
             case EAIState.Chase:
                 anim.SetBool("Run", true);
@@ -131,6 +133,7 @@ public class BasicEnemy : MonoBehaviour
         if (Vector3.Distance(chasingTarget.position, transform.position) > followRange)
         {
             chasingTarget = null;
+            ChangeAIState(EAIState.None);
         }
     }
 
