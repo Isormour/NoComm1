@@ -28,6 +28,23 @@ namespace StarterAssets
 		public bool isPressedSkill4 = false;
 		public bool isPressedInterract = false;
 		public bool isPressedShield = false;
+
+		public void ResetAllStates()
+		{
+			move = Vector2.zero;
+			look = Vector2.zero;
+			jump = false;
+			sprint = false;
+			analogMovement = false;
+			cursorLocked = true;
+			cursorInputForLook = true;
+			isPressedAttack1  = false;
+			isPressedAttack2  = false;
+			isPressedSkill1 = false;
+			isPressedSkill2 = false;
+			isPressedSkill3 = false;
+			isPressedSkill4 = false;
+		}
 		
 		public void MoveInput(Vector2 newMoveDirection)
 		{

@@ -38,13 +38,18 @@ namespace _Project.Scripts.Player
             if (!isActivePlatform)
                 return;
             MoveInputEvents.Instance.SetMoveInputReceiver(moveInputReceiver);
-            this.previousInputReceiver = moveInputReceiver;
+            CameraManager.Instance.SetTarget(cameraObject);
+            this.previousInputReceiver = previousInputReceiver;
+            previousInputReceiver.ResetAllStates();
             
         }
 
         public void GiveUpControl()
         {
             MoveInputEvents.Instance.SetMoveInputReceiver(previousInputReceiver);
+            CameraManager.Instance.SetTarget(previousInputReceiver.GetComponent<CameraObject>());
+            previousInputReceiver = null;
+            moveInputReceiver.ResetAllStates();
         }
 
         private void UpdateInput()

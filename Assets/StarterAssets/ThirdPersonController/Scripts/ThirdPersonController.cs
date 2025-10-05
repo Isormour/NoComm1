@@ -58,10 +58,6 @@ namespace StarterAssets
 
         [Tooltip("What layers the character uses as ground")]
         public LayerMask GroundLayers;
-
-        [Header("Cinemachine")]
-        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-        public GameObject CinemachineCameraTarget;
         
         // player
         private float _speed;
@@ -91,8 +87,6 @@ namespace StarterAssets
         private GameObject _mainCamera;
         private bool _hasAnimator;
         
-
-
         private void Awake()
         {
             // get a reference to our main camera
