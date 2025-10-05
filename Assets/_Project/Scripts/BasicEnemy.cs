@@ -103,6 +103,11 @@ public class BasicEnemy : MonoBehaviour
     }
     void Update()
     {
+        if (chasingTarget == null)
+        {
+            
+            return;
+        }
         if (aiState == EAIState.Chase)
         {
             Chase();
@@ -117,6 +122,11 @@ public class BasicEnemy : MonoBehaviour
             lookPos.y = this.transform.position.y;
             this.transform.LookAt(lookPos);
         }
+    }
+
+    private void FindTarget()
+    {
+        
     }
     private void Chase()
     {
