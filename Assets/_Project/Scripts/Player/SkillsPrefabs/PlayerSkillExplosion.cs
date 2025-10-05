@@ -19,12 +19,12 @@ public class PlayerSkillExplosion : Skill
         playerController = skillData.Owner.GetComponent<PlayerController>();
     }
 
-    public override void Execute()
+    public override bool Execute()
     {
-        
+        return false;
     }
 
-    public override void StartCharge()
+    public override bool StartCharge()
     {
         chargeValue = 0;
         if (currentChargeVFX == null)
@@ -32,10 +32,10 @@ public class PlayerSkillExplosion : Skill
             CreateVFXInstance();
         }
         ChangeChargeVRXParams(0, new Vector2(0.1f, 0.2f));
-
+        return true;
     }
 
-    public override void UpdateCharge()
+    public override bool UpdateCharge()
     {
         chargeValue += Time.deltaTime;
         float min = Mathf.Clamp(0.1f * (1 + chargeValue), 0.1f, 1.0f);
@@ -48,8 +48,10 @@ public class PlayerSkillExplosion : Skill
         {
             ReleaseCharge();
         }
+
+        return true;
     }
-    public override void ReleaseCharge()
+    public override bool ReleaseCharge()
     {
         Vector3 position = playerController.transform.position;
         position += new Vector3(0, 0.5f, 0);// fix y position
@@ -57,6 +59,7 @@ public class PlayerSkillExplosion : Skill
         exposionController.SetParams(this);
         exposionController.transform.position = position;
         ChangeChargeVRXParams(0, new Vector2(0.1f, 0.2f));
+        return true;
     }
     private void CreateVFXInstance()
     {

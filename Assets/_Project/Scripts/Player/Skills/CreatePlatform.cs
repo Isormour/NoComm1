@@ -9,29 +9,32 @@ namespace _Project.Scripts.Player.Skills
 
         private Platform spawnedPlatform;
 
-        public override void Execute()
+        public override bool Execute()
         {
             throw new System.NotImplementedException();
         }
 
-        public override void StartCharge()
+        public override bool StartCharge()
         {
             spawnedPlatform = Instantiate(platform);
             spawnedPlatform.transform.position = CalculatedPoint();
             //spawnedPlatform.SetSelected(true);
+            return true;
         }
 
-        public override void UpdateCharge()
+        public override bool UpdateCharge()
         {
             spawnedPlatform.transform.position = CalculatedPoint();
+            return true;
         }
 
-        public override void ReleaseCharge()
+        public override bool ReleaseCharge()
         {
             spawnedPlatform.InitPLatform();
             //spawnedPlatform.SetSelected(false);
             spawnedPlatform = null;
             SkillData.StatisticsHolder.ChangeAmountMana(-Cost);
+            return true;
         }
 
 

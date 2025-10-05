@@ -705,6 +705,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 331960170305283207, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: <InputReceiver>k__BackingField
+      value: 
+      objectReference: {fileID: 939489454}
+    - target: {fileID: 631409443057702649, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: skillSlots.Array.data[2].<SkillToExecute>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 9f0b567f15ff84c41b96cf3788c158c6, type: 2}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.91
@@ -1334,6 +1342,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
   virtualCamera: {fileID: 1402827285}
+  CinemachineCameraTarget: {fileID: 315948497}
+  TopClamp: 70
+  BottomClamp: -30
+  CameraAngleOverride: 0
+  LockCameraPosition: 0
 --- !u!1 &1513342709
 GameObject:
   m_ObjectHideFlags: 0

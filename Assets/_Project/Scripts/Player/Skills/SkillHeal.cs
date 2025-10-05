@@ -3,22 +3,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill", menuName = "Player/Skill/Heal", order = 1)]
 public class SkillHeal : Skill
 {
-    public override void Execute()
+    public override bool Execute()
     {
-        
+        return false;
     }
 
-    public override void StartCharge()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void UpdateCharge()
+    public override bool StartCharge()
     {
         throw new System.NotImplementedException();
     }
 
-    public override void ReleaseCharge()
+    public override bool UpdateCharge()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool ReleaseCharge()
     {
         throw new System.NotImplementedException();
     }

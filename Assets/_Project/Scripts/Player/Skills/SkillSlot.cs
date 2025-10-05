@@ -85,8 +85,10 @@ public class SkillSlot
     {
         if (SkillToExecute.skilltype != ESkillType.Charge)
             return;
-        Cooldown = SkillToExecute.CooldownTime;
-        SkillToExecute.ReleaseCharge();
+        if (SkillToExecute.ReleaseCharge())
+        {
+            Cooldown = SkillToExecute.CooldownTime;
+        }
         charging = false;
     }
 
@@ -94,11 +96,17 @@ public class SkillSlot
     {
         if (SkillToExecute.skilltype == ESkillType.Instant)
         {
-            Cooldown = SkillToExecute.CooldownTime;
             SkillToExecute.Execute();
+            if (SkillToExecute.Execute())
+            {
+                Cooldown = SkillToExecute.CooldownTime;
+            }
             return;
         }
-        charging = true;
-        SkillToExecute.StartCharge();
+
+        if (SkillToExecute.StartCharge())
+        {
+            charging = true;
+        }
     }
 }
