@@ -77,9 +77,9 @@ namespace _Project.Scripts.Player
         private void UpdateInput()
         {
             float x, y, z;
-            x = GetOutput(moveInputReceiver.move.x < 0, moveInputReceiver.move.x > 0);
+            x = GetOutput(moveInputReceiver.move.x < -0.1, moveInputReceiver.move.x > 0.1);
             y = GetOutput(moveInputReceiver.sprint, moveInputReceiver.jump);
-            z = GetOutput(moveInputReceiver.move.y < 0, moveInputReceiver.move.y > 0);
+            z = GetOutput(moveInputReceiver.move.y < -0.1, moveInputReceiver.move.y > 0.1);
 
             if (moveInputReceiver.isPressedInterract)
             {
