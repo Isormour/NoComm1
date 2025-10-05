@@ -40,7 +40,6 @@ namespace _Project.Scripts.Player
         private void Update()
         {
             UpdateMaterialState();
-            UpdateInput();
             if (isOverControl)
             {
                 UpdateInput();
@@ -111,7 +110,7 @@ namespace _Project.Scripts.Player
         {
             if (movingPoints.Count == 0)
                 return;
-            if (currentId > movingPoints.Count)
+            if (currentId >= movingPoints.Count)
                 currentId = 0;
 
             transform.position = Vector3.MoveTowards(transform.position, movingPoints[currentId],
