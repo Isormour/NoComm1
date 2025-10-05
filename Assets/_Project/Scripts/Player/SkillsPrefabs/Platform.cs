@@ -98,7 +98,7 @@ namespace _Project.Scripts.Player
 
         private float GetOutput(bool negative, bool positive)
         {
-            if (negative && positive)
+            if (negative == positive)
                 return 0;
             if (negative)
                 return -1;
