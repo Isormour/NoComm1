@@ -6,31 +6,23 @@ namespace _Project.Scripts.World
     public class MovingPlatform : MonoBehaviour
     {
         [SerializeField] private Transform target;
+        
+        private Vector3 previousPosition;
+        private Vector3 moveOffset = Vector3.zero;
 
-        private void OnTriggerEnter(Collider other)
+        private void Update()
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                other.transform.SetParent(target);
-            }
-
-            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            {
-                other.transform.SetParent(target);
-            }
+            moveOffset = previousPosition - target.position;
         }
 
-        private void OnTriggerExit(Collider other)
+        private void LateUpdate()
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                other.transform.SetParent(null);
-            }
+            previousPosition = transform.position;
+        }
 
-            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            {
-                other.transform.SetParent(null);
-            }
+        private void OnTriggerStay(Collider other)
+        {
+            other.transform.position = target.position + moveOffset;
         }
     }
 }
