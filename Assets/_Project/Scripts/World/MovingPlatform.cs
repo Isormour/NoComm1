@@ -22,6 +22,8 @@ namespace _Project.Scripts.World
 
         private void OnTriggerStay(Collider other)
         {
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
+                return;
             other.transform.position = target.position + moveOffset;
         }
     }
