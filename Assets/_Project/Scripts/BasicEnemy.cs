@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.PlayerLoop;
 
 /* �ledzie po kaszubsku ala dexrafi
  *Sk�adniki:
@@ -35,8 +36,10 @@ public class BasicEnemy : MonoBehaviour
     public StatisticsHolder StatisticsHolder { get; private set; }
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
-    [SerializeField] float range;
-
+    [SerializeField] private float followRange = 15;
+    [SerializeField] private float attackRange = 1;
+    [SerializeField] private LayerMask layerMask;
+    
     private Transform chasingTarget;
     
     enum EAIState
@@ -46,7 +49,7 @@ public class BasicEnemy : MonoBehaviour
         Attack,
     }
 
-    EAIState aiState;
+    private EAIState aiState;
 
     private void Awake()
     {
@@ -82,8 +85,10 @@ public class BasicEnemy : MonoBehaviour
     // Sends from animation event on hitAnimation
     private void Hit()
     {
+        if (chasingTarget == null)
+            return;
         float dist = Vector3.Distance(chasingTarget.position, this.transform.position);
-        if (dist > range)
+        if (dist > attackRange)
             return;
         var damageData = new DamageData()
         {
@@ -105,13 +110,13 @@ public class BasicEnemy : MonoBehaviour
     {
         if (chasingTarget == null)
         {
-            
+            FindTarget();
             return;
         }
         if (aiState == EAIState.Chase)
         {
             Chase();
-            if (agent.remainingDistance < range && !agent.pathPending)
+            if (agent.remainingDistance < attackRange && !agent.pathPending)
             {
                 ChangeAIState(EAIState.Attack);
             }
@@ -122,11 +127,28 @@ public class BasicEnemy : MonoBehaviour
             lookPos.y = this.transform.position.y;
             this.transform.LookAt(lookPos);
         }
+
+        if (Vector3.Distance(chasingTarget.position, transform.position) > followRange)
+        {
+            chasingTarget = null;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, followRange);
+        Gizmos.color = Color.purple;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
     private void FindTarget()
     {
-        
+        var players = Physics.OverlapSphere(transform.position, followRange, layerMask);
+        if(players.Length == 0)
+            return;
+        chasingTarget = players[0].transform;
+        ChangeAIState(EAIState.Chase);
     }
     private void Chase()
     {
