@@ -68,18 +68,14 @@ public class BasicEnemy : MonoBehaviour
         {
             case EAIState.None:
                 anim.SetBool("Run", false);
-                anim.SetBool("Attack", false);
+                agent.SetDestination(transform.position);
                 break;
             case EAIState.Chase:
                 anim.SetBool("Run", true);
-                anim.SetBool("Attack", false);
                 break;
             case EAIState.Attack:
                 agent.SetDestination(transform.position);
-                anim.SetBool("Run", false);
-                anim.SetBool("Attack", true);
-                break;
-            default:
+                anim.SetTrigger("Attack");
                 break;
         }
     }
