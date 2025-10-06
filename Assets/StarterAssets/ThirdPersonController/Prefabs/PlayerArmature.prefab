@@ -646,6 +646,8 @@ GameObject:
   - component: {fileID: 6495046466246262543}
   - component: {fileID: 631409443057702649}
   - component: {fileID: 331960170305283207}
+  - component: {fileID: 2533964088669995963}
+  - component: {fileID: 7976872016434661028}
   m_Layer: 9
   m_Name: PlayerArmature
   m_TagString: Player
@@ -762,11 +764,6 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 1
-  CinemachineCameraTarget: {fileID: 8338988566280778634}
-  TopClamp: 70
-  BottomClamp: -30
-  CameraAngleOverride: 0
-  LockCameraPosition: 0
   _playerInput: {fileID: 0}
 --- !u!114 &5885216827943657505
 MonoBehaviour:
@@ -932,7 +929,7 @@ MonoBehaviour:
   skillSlots:
   - <SkillToExecute>k__BackingField: {fileID: 11400000, guid: 50031a552ee8074419f2ed3c5f4d586e, type: 2}
   - <SkillToExecute>k__BackingField: {fileID: 11400000, guid: 0def7cbc9571cf941b0dac9c0219689b, type: 2}
-  - <SkillToExecute>k__BackingField: {fileID: 0}
+  - <SkillToExecute>k__BackingField: {fileID: 11400000, guid: 9f0b567f15ff84c41b96cf3788c158c6, type: 2}
   - <SkillToExecute>k__BackingField: {fileID: 0}
   - <SkillToExecute>k__BackingField: {fileID: 0}
   - <SkillToExecute>k__BackingField: {fileID: 0}
@@ -949,6 +946,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Camera.CameraObject
   <Target>k__BackingField: {fileID: 8338988566280778637}
+  <InputReceiver>k__BackingField: {fileID: 135756642000475821}
+--- !u!54 &2533964088669995963
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!136 &7976872016434661028
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4802396776456247065
 GameObject:
   m_ObjectHideFlags: 0

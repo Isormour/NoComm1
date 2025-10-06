@@ -20,18 +20,25 @@ namespace _Project.Scripts.World
             previousPosition = transform.position;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
                 return;
-            other.transform.parent = target;
+            other.transform.position = target.position + moveOffset;
         }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
-                return;
-            other.transform.parent = null;
-        }
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
+        //         return;
+        //     other.transform.parent = target;
+        // }
+        //
+        // private void OnTriggerExit(Collider other)
+        // {
+        //     if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
+        //         return;
+        //     other.transform.parent = null;
+        // }
     }
 }
