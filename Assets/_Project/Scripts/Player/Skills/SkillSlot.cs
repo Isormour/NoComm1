@@ -94,6 +94,8 @@ public class SkillSlot
 
     private void OnKeyDown()
     {
+        if (!HasEnoughMana())
+            return;
         if (SkillToExecute.skilltype == ESkillType.Instant)
         {
             SkillToExecute.Execute();
