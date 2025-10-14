@@ -1,5 +1,6 @@
 ﻿ using _Project.Scripts.Camera;
- using UnityEngine;
+using _Project.Scripts.Character;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -77,11 +78,14 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _animIDDead;
 
 #if ENABLE_INPUT_SYSTEM 
         [SerializeField] private PlayerInput _playerInput;
 #endif
         private Animator _animator;
+        private StatisticsHolder _playerStats;
+        private SkillsController _skillController;
         private CharacterController _controller;
         private MoveInputReceiver _input;
         private GameObject _mainCamera;
@@ -94,6 +98,8 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            _skillController = GetComponent<SkillsController>();
         }
 
         private void Start()
@@ -102,11 +108,15 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<MoveInputReceiver>();
+            _playerStats = GetComponent<StatisticsHolder>();
             AssignAnimationIDs();
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            //Events
+            _playerStats.OnDeath.AddListener((DamageData damage) => OnDeath());
         }
 
         private void Update()
@@ -125,6 +135,7 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDDead = Animator.StringToHash("Dead");
         }
 
         private void GroundedCheck()
@@ -315,6 +326,32 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+
+        private void OnDeath()
+        {
+
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDDead, true);
+            }
+            this.enabled = false;
+            _skillController.enabled = false;
+
+        }
+
+        public void Respawn()
+        {
+            _skillController.enabled = true;
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDDead, false);
+
+                _animator.Play("Idle Walk Run Blend");
+            }
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }

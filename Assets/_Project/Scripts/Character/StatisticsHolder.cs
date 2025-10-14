@@ -14,6 +14,8 @@ public class StatisticsHolder : MonoBehaviour
 
     public bool IsDead => currentHealth <= 0;
 
+    
+
     public DamageCalculator DamageCalculator { get; set; } = new DamageCalculator();
     [SerializeField] SimpleVFX hitVFX;
 
@@ -52,15 +54,26 @@ public class StatisticsHolder : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
+    internal void Death()
+    {
+        if(this.gameObject.CompareTag("Player"))
+            Debug.Log("Player Dead");
+        //odtworzenie animacji śmierci
+    }
+
     public void TakeDamage(DamageData damageData)
     {
         if (IsDead)
+        {
+            Death();
             return;
+        }
         damageData = DamageCalculator.CalculateDamage(damageData);
         ChangeAmountHealth(-damageData.Damage);
         OnDamage.Invoke(damageData);
         if (currentHealth <= 0)
         {
+            Debug.Log("Dead");
             OnDeath.Invoke(damageData);
         }
         if(hitVFX!=null && damageData.Particles > 0)

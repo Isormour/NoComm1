@@ -154,7 +154,6 @@ public class BasicEnemy : MonoBehaviour
         if (chasingTarget == null)
             return;
         agent.SetDestination(chasingTarget.position);
-
     }
 
     private void OnDeath(DamageData damageData)

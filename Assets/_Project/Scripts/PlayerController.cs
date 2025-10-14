@@ -34,6 +34,7 @@ Serwuj z fermentowanym nektarem krowy, owocami rajskimi lub słodkim proszkiem z
 public class PlayerController : MonoBehaviour
 {
     public StatisticsHolder StatisticsHolder { get; private set; }
+    public CheckPointsManager checkPointController { get; private set; }
     [SerializeField] Animator anim;
     [SerializeField] PlayerShield leftShield;
     [SerializeField] PlayerShield rightShield;
@@ -43,10 +44,13 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
-        StatisticsHolder  = GetComponent<StatisticsHolder>();
+        StatisticsHolder = GetComponent<StatisticsHolder>();
+        moveInputReceiver = GetComponent<MoveInputReceiver>();
+        checkPointController = GetComponent<CheckPointsManager>();
+
         StatisticsHolder.OnDamage.AddListener(TakeHit);
+
         StatisticsHolder.DamageCalculator = new PlayerDamageCalculator(leftShield, rightShield);
-        moveInputReceiver  = GetComponent<MoveInputReceiver>();
     }
     
     public void OnCharging()

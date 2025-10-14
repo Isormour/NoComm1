@@ -54,7 +54,6 @@ namespace _Project.Scripts.Camera
 
                 _cinemachineTargetYaw += inputReceiver.look.x * deltaTimeMultiplier;
                 _cinemachineTargetPitch += inputReceiver.look.y * deltaTimeMultiplier;
-                Debug.Log(inputReceiver.look);
             }
 
             // clamp our rotations so our values are limited 360 degrees

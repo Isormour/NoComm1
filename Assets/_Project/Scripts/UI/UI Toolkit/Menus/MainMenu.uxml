@@ -1,0 +1,7 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="flex-grow: 1; justify-content: center; align-self: flex-start; align-content: stretch; align-items: stretch; position: absolute; top: auto; left: auto; rotate: 0 0 0 0; height: 255px; width: 399px; flex-shrink: 2; flex-basis: auto;">
+        <ui:Button text="Start" name="Play" style="background-color: rgb(188, 188, 188); -unity-text-outline-width: 1px; color: rgb(0, 0, 0); font-size: 44px; -unity-background-image-tint-color: rgb(255, 255, 255);" />
+        <ui:Button text="Settings" name="Settings" style="font-size: 44px;" />
+        <ui:Button text="Exit" name="Quit" style="font-size: 44px; align-items: stretch;" />
+    </ui:VisualElement>
+</ui:UXML>
