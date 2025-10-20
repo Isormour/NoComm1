@@ -11,9 +11,26 @@ public class DismemberOnDeath : MonoBehaviour
         enemy.StatisticsHolder.OnDeath.AddListener(OnDeath);
         // enemy.OnDeath += OnDeath;
         rbs = GetComponentsInChildren<Rigidbody>();
+
+        foreach (var item in GetComponentsInChildren<Collider>())
+        {
+            if (item.gameObject != this.gameObject)
+            {
+                item.enabled = false;
+            }
+        }
     }
     private void OnDeath(DamageData damageData)
     {
+        foreach (var item in GetComponentsInChildren<Collider>())
+        {
+            
+                item.enabled = true;
+            
+            
+
+
+        }
         foreach (var item in deparentTransforms)
         {
             item.SetParent(this.transform);

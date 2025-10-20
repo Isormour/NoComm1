@@ -23,7 +23,7 @@ public class StatisticsHolder : MonoBehaviour
     [SerializeField] private float maxHealth;
     [SerializeField] private float damage;
     public float currentMana { get; private set; }
-    public float currentHealth { get; private set; }
+    public float currentHealth;
     
     public float currentPercentHealth => currentHealth / maxHealth;
     public float currentPercentMana => currentMana / maxMana;

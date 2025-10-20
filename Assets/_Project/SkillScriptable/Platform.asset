@@ -16,6 +16,6 @@ MonoBehaviour:
   <Level>k__BackingField: 0
   <CooldownTime>k__BackingField: 3
   <skilltype>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 7762e501a6cd4e2458a75eea51bbeced, type: 3}
   <id>k__BackingField: 0
   platform: {fileID: -7211870928525157651, guid: 932ebfff5d386ad499d591ffdda6aeeb, type: 3}

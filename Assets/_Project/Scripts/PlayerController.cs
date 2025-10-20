@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using StarterAssets;
 using UnityEngine;
 
@@ -41,6 +42,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerIKController IKController;
     
     private MoveInputReceiver moveInputReceiver;
+
+
+    [Header("Fuszera tutaj")]
+    public AnimationCurve zajebistyTimeCurve;
+    public InsideSphere AttackCheckTrigger;
     
     private void Awake()
     {
@@ -71,8 +77,113 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("EndGuard");
             GuardDown();
         }
+
+        if (moveInputReceiver.isPressedAttack1)
+        {
+            anim.SetBool("AttackPressed",true);
+            Debug.Log("koduje  coś");
+        }
+
+        else
+        {
+            anim.SetBool("AttackPressed", false);
+        }
+
+        
     }
-    
+
+
+     public void AttackStart()
+    {
+        Debug.Log("evencik1");
+        GameTimeManager.Instance.ManipulateTime(zajebistyTimeCurve, 1f);
+    }
+
+
+    public void AttackHit()
+    {
+
+        foreach (var item in AttackCheckTrigger.objectsInside)
+        {
+            if (item == null)
+            {
+                continue;
+            }
+
+            if (item.CompareTag("Enemy"))
+            {
+
+                StatisticsHolder enemy = item.GetComponent<StatisticsHolder>();
+                DamageData damageData = new DamageData()
+                {
+                    Damage = 25f,
+                    DamageSourcePosition = transform.position,
+                    Target = enemy.transform,
+                    Owner = transform
+                };
+                enemy.TakeDamage(damageData);
+            }
+        }
+
+
+
+        //find closesst enemy in sphere.
+        // StatisticsHolder enemy = other.GetComponent<StatisticsHolder>();
+
+        //zapierdol najbliższemu
+        /*
+        if (other.CompareTag("Enemy"))
+        {
+            StatisticsHolder enemy = other.GetComponent<StatisticsHolder>();
+            DamageData damageData = new DamageData()
+            {
+                Damage = explosion.Damage,
+                DamageSourcePosition = transform.position,
+                Target = enemy.transform,
+                Owner = explosion.SkillData.Owner.transform
+            };
+            enemy.TakeDamage(damageData);
+        }
+        */
+        Debug.Log("evencik2");
+    }
+
+
+    public SkillThrowShield ThrowShieldSkill;
+    public GameObject ShieldPrefab;
+    public void ThrowShield()
+    {
+        ShieldPrefab = ThrowShieldSkill.ShieldPrefab;
+        PlayerAnchors.Instance.rightShield.GetComponent<MeshRenderer>().enabled = false;
+
+        var pos = PlayerAnchors.Instance.rightShield.transform.position;
+        var rot = PlayerAnchors.Instance.rightShield.transform.rotation;
+        //var scaly = PlayerAnchors.Instance.rightShield.transform.localScale;
+        ThrowShieldSkill.prefabExisting = Instantiate(ShieldPrefab, pos, rot).GetComponent<ThrowedShield>();
+        StartCoroutine(ReturnShieldAfter(5.039996f));
+    }
+
+    //return Shield;
+    public void ReturnShield()
+    {
+        PlayerAnchors.Instance.rightShield.GetComponent<MeshRenderer>().enabled = true;
+        Destroy(ThrowShieldSkill.prefabExisting.gameObject);
+        ThrowShieldSkill.prefabExisting = null;
+    }
+
+    IEnumerator ReturnShieldAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        ReturnShield();
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+
+    }
+
+
+
     private void TakeHit(DamageData damageData)
     {
         if (damageData.AngleToEnemy > 90)
