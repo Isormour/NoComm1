@@ -7,6 +7,7 @@ public class PlayerAnchors : MonoBehaviour
 
     public Animator animator;
     public GameObject rightShield;
+    public GameObject leftShield;
 
     void Awake()
     {

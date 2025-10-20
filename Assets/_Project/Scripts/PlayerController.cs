@@ -151,30 +151,64 @@ public class PlayerController : MonoBehaviour
 
     public SkillThrowShield ThrowShieldSkill;
     public GameObject ShieldPrefab;
-    public void ThrowShield()
+
+    //from animator
+    public void ThrowShieldRight()
     {
         ShieldPrefab = ThrowShieldSkill.ShieldPrefab;
+        ThrowedShield xd = ShieldPrefab.GetComponent<ThrowedShield>();
+        xd.isRight = true;
         PlayerAnchors.Instance.rightShield.GetComponent<MeshRenderer>().enabled = false;
-
+      
         var pos = PlayerAnchors.Instance.rightShield.transform.position;
         var rot = PlayerAnchors.Instance.rightShield.transform.rotation;
         //var scaly = PlayerAnchors.Instance.rightShield.transform.localScale;
-        ThrowShieldSkill.prefabExisting = Instantiate(ShieldPrefab, pos, rot).GetComponent<ThrowedShield>();
-        StartCoroutine(ReturnShieldAfter(5.039996f));
+        ThrowShieldSkill.prefabExistingright = Instantiate(ShieldPrefab, pos, rot).GetComponent<ThrowedShield>();
+        StartCoroutine(ReturnShieldRightAfter(5.039996f));
+    }
+
+    public void ThrowShieldLeft()
+    {
+        ShieldPrefab = ThrowShieldSkill.ShieldPrefab;
+        ThrowedShield xd = ShieldPrefab.GetComponent<ThrowedShield>();
+        xd.isRight = false;
+        PlayerAnchors.Instance.leftShield.GetComponent<MeshRenderer>().enabled = false;
+
+        var pos = PlayerAnchors.Instance.leftShield.transform.position;
+        var rot = PlayerAnchors.Instance.leftShield.transform.rotation;
+        //var scaly = PlayerAnchors.Instance.rightShield.transform.localScale;
+        ThrowShieldSkill.prefabExistingleft = Instantiate(ShieldPrefab, pos, rot).GetComponent<ThrowedShield>();
+
+        StartCoroutine(ReturnShieldLeftAfter(5.039996f));
     }
 
     //return Shield;
-    public void ReturnShield()
+    public void ReturnShieldRight()
     {
         PlayerAnchors.Instance.rightShield.GetComponent<MeshRenderer>().enabled = true;
-        Destroy(ThrowShieldSkill.prefabExisting.gameObject);
-        ThrowShieldSkill.prefabExisting = null;
+        Destroy(ThrowShieldSkill.prefabExistingright.gameObject);
+        ThrowShieldSkill.prefabExistingright = null;
     }
 
-    IEnumerator ReturnShieldAfter(float time)
+    public void ReturnShieldLeft()
+    {
+        PlayerAnchors.Instance.leftShield.GetComponent<MeshRenderer>().enabled = true;
+        Destroy(ThrowShieldSkill.prefabExistingleft.gameObject);
+        ThrowShieldSkill.prefabExistingleft = null;
+    }
+
+
+
+    IEnumerator ReturnShieldRightAfter(float time)
     {
         yield return new WaitForSeconds(time);
-        ReturnShield();
+        ReturnShieldRight();
+    }
+
+    IEnumerator ReturnShieldLeftAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        ReturnShieldLeft();
     }
 
     public void OnTriggerEnter(Collider other)

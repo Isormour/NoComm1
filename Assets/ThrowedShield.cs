@@ -19,10 +19,20 @@ public class ThrowedShield : MonoBehaviour
     public Collider colider;
     public float toEnemyForce;
 
+    public bool isRight;
     private void Awake()
     {
         initialDirection = PlayerAnchors.Instance.transform.forward + Vector3.up/5f;
-        rb.transform.position = PlayerAnchors.Instance.rightShield.transform.position;
+        if (isRight)
+        {
+            rb.transform.position = PlayerAnchors.Instance.rightShield.transform.position;
+        }
+
+        else
+        {
+            rb.transform.position = PlayerAnchors.Instance.leftShield.transform.position;
+        }
+            
         colider.enabled = false;
         rb.AddForce(initialDirection * force, ForceMode.VelocityChange);
         StartCoroutine(delayXD());
@@ -30,18 +40,14 @@ public class ThrowedShield : MonoBehaviour
 
     IEnumerator delayXD()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.05f);
 
         colider.enabled = true;
-
-
-
     }
 
     void FixedUpdate()
     {
         timeFlying += Time.deltaTime;
-
 
         if (timeFlying > 3f && !commingBack)
         {
@@ -115,6 +121,12 @@ public class ThrowedShield : MonoBehaviour
 
             // --- 2. Obrót wokół lokalnej osi Z ---
             float rotationSpeed = 1800f; // stopni/s
+
+            if (!isRight)
+            {
+                rotationSpeed *= -1;
+            }
+
             float angularVelocity = rotationSpeed * Mathf.Deg2Rad;
 
             rb.transform.rotation *= Quaternion.Euler(0f, rotationSpeed * Time.deltaTime, 0f);
@@ -123,16 +135,12 @@ public class ThrowedShield : MonoBehaviour
             // --- 1. Prostowanie osi "up" do góry ---
 
             // Obrót w lokalnej osi Z (transform.forward = oś Z lokalna)
-            //rb.AddTorque(transform.forward * angularVelocity, ForceMode.Acceleration);
-
-
+            //rb.AddTorque(transform.forward * angularVelocity, ForceMode.Acceleration)
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        
-
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -155,7 +163,7 @@ public class ThrowedShield : MonoBehaviour
             HitSomething = true;
         }
 
-            Debug.Log(collision.gameObject.name, collision.gameObject);
+        Debug.Log(collision.gameObject.name, collision.gameObject);
         rb.useGravity = true;
     }
 
@@ -172,19 +180,48 @@ public class ThrowedShield : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-
-            transform.position = Vector3.Slerp(startPos, PlayerAnchors.Instance.rightShield.transform.position + (Vector3.up*(25f*(1f-t))), CustomShit.Evaluate(t));
-            if (t>0.3f)
+            if (isRight)
             {
-                transform.rotation = Quaternion.Slerp(startRot, PlayerAnchors.Instance.rightShield.transform.rotation, CustomShit.Evaluate(t));
+                transform.position = Vector3.Slerp(startPos, PlayerAnchors.Instance.rightShield.transform.position + (Vector3.up * (25f * (1f - t))), CustomShit.Evaluate(t));
             }
-            
 
+            else
+            {
+                transform.position = Vector3.Slerp(startPos, PlayerAnchors.Instance.leftShield.transform.position + (Vector3.up * (25f * (1f - t))), CustomShit.Evaluate(t));
+            }
+
+            if (isRight)
+            {
+
+                if (t > 0.3f)
+                {
+                    transform.rotation = Quaternion.Slerp(startRot, PlayerAnchors.Instance.rightShield.transform.rotation, CustomShit.Evaluate(t));
+                }
+            }
+
+            else
+            {
+
+                if (t > 0.3f)
+                {
+                    transform.rotation = Quaternion.Slerp(startRot, PlayerAnchors.Instance.leftShield.transform.rotation, CustomShit.Evaluate(t));
+                }
+            }
+
+            
             yield return null;
         }
 
-        // Upewnij si�, �e ko�czy dok�adnie w celu
-        transform.position = PlayerAnchors.Instance.rightShield.transform.position;
-        transform.rotation = PlayerAnchors.Instance.rightShield.transform.rotation;
+        if (isRight)
+        {
+            // Upewnij si�, �e ko�czy dok�adnie w celu
+            transform.position = PlayerAnchors.Instance.rightShield.transform.position;
+            transform.rotation = PlayerAnchors.Instance.rightShield.transform.rotation;
+        }
+        else
+        {
+            transform.position = PlayerAnchors.Instance.leftShield.transform.position;
+            transform.rotation = PlayerAnchors.Instance.leftShield.transform.rotation;
+        }
     }
 }

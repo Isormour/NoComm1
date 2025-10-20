@@ -7,31 +7,36 @@ using System;
 public class SkillThrowShield : Skill
 {
     public GameObject ShieldPrefab;
-    public ThrowedShield prefabExisting;
+    public ThrowedShield prefabExistingright;
+    public ThrowedShield prefabExistingleft;
+    bool isRight;
     public override bool Execute()
     {
-        if (prefabExisting == null)
+        if (prefabExistingright == null || prefabExistingleft == null)
         {
-            PlayerAnchors.Instance.animator.SetTrigger("SkillThrowShield");
+            int xd = UnityEngine.Random.Range(0, 2);
+            if (xd == 0)
+            {
+                PlayerAnchors.Instance.animator.SetTrigger("SkillThrowShield_right");
+
+            }
+
+            else
+            {
+                PlayerAnchors.Instance.animator.SetTrigger("SkillThrowShield_right");
+                //PlayerAnchors.Instance.animator.SetTrigger("SkillThrowShield_left");
+            }
+
+            Debug.Log("EXECUTE");
             return true;
         }
 
         else {
 
             return false;
-        
         }
            
     }
-
-    public void Delay()
-    {
-        var pos = PlayerAnchors.Instance.rightShield.transform.position;
-        var rot = PlayerAnchors.Instance.rightShield.transform.rotation;
-        //var scaly = PlayerAnchors.Instance.rightShield.transform.localScale;
-        prefabExisting = Instantiate(ShieldPrefab, pos, rot).GetComponent<ThrowedShield>();
-    }
-
 
     public override bool StartCharge()
     {
