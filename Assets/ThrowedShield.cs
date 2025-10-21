@@ -22,9 +22,10 @@ public class ThrowedShield : MonoBehaviour
     public bool isRight;
     private void Awake()
     {
-        initialDirection = PlayerAnchors.Instance.transform.forward + Vector3.up/5f;
+        initialDirection = Camera.main.transform.forward + Vector3.up / 5f;
         if (isRight)
         {
+            rb = GetComponent<Rigidbody>();
             rb.transform.position = PlayerAnchors.Instance.rightShield.transform.position;
         }
 
@@ -48,10 +49,21 @@ public class ThrowedShield : MonoBehaviour
     void FixedUpdate()
     {
         timeFlying += Time.deltaTime;
+        //prevent
+        if (timeFlying > 30f)
+        {
+            StartCoroutine(ComeBackShield());
+        }
+
 
         if (timeFlying > 3f && !commingBack)
         {
             StartCoroutine(ComeBackShield());
+            if (!HitEnemy)
+            {
+               
+            }
+            
         }
 
         else
@@ -90,6 +102,10 @@ public class ThrowedShield : MonoBehaviour
                 // Kierunek w stron� przeciwnika
                 Vector3 dir = (closestEnemy.transform.position + Vector3.up - transform.position).normalized;
 
+                if (HitEnemy)
+                {
+                    return; 
+                }
                 // Je�li masz Rigidbody:
                 if (rb != null)
                 {
@@ -144,7 +160,7 @@ public class ThrowedShield : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-
+            if (HitEnemy) return;
             StatisticsHolder enemy = collision.gameObject.GetComponent<StatisticsHolder>();
             DamageData damageData = new DamageData()
             {
@@ -155,12 +171,16 @@ public class ThrowedShield : MonoBehaviour
             };
             enemy.TakeDamage(damageData);
             HitEnemy = true;
-            StartCoroutine(ComeBackShield());
+            //StartCoroutine(ComeBackShield()); //cool Feature
         }
 
         else
         {
-            HitSomething = true;
+            if (!HitEnemy)
+            {
+
+                HitSomething = true;
+            }
         }
 
         Debug.Log(collision.gameObject.name, collision.gameObject);

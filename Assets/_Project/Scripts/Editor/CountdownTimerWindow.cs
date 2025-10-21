@@ -6,7 +6,7 @@ public class CountdownTimerWindow : EditorWindow
 {
     private const string RemainingKey = "CountdownTimer_Remaining";
     private const string RunningKey = "CountdownTimer_Running";
-    private const double TotalTime = 20 * 60 * 60; // 20h w sekundach
+    private const double TotalTime = 12.17f * 60 * 60; // 20h w sekundach
 
     private double remaining;
     private bool running;

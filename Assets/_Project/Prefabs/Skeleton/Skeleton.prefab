@@ -192,6 +192,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: b96483bad95afb5469743561c4bdaace, type: 2}
+    - target: {fileID: 5866666021909216657, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6608632893917367558, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -1365,6 +1369,7 @@ MonoBehaviour:
   maxMana: 10
   maxHealth: 10
   damage: 1
+  currentHealth: 0
 --- !u!1 &7781881617603813427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5067417469064874575, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf, type: 3}

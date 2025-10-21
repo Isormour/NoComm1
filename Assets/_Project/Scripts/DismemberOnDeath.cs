@@ -24,12 +24,13 @@ public class DismemberOnDeath : MonoBehaviour
     {
         foreach (var item in GetComponentsInChildren<Collider>())
         {
-            
                 item.enabled = true;
-            
-            
+        }
 
-
+        foreach (var item in GetComponentsInChildren<Rigidbody>())
+        {
+            item.linearVelocity = Vector3.zero; 
+            item.angularVelocity = Vector3.zero;
         }
         foreach (var item in deparentTransforms)
         {
@@ -44,7 +45,7 @@ public class DismemberOnDeath : MonoBehaviour
         {
             Vector3 direction = item.transform.position - damageData.DamageSourcePosition;
             direction.y = Mathf.Clamp(direction.y, 0, 100);
-            item.AddForce(direction * force * damageData.Damage, ForceMode.Impulse);
+            //item.AddForce(direction * force * damageData.Damage, ForceMode.Impulse);
         }
     }
 }

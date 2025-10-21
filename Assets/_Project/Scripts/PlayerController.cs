@@ -65,16 +65,19 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
+    bool ShieldUp = false;
     void Update()
     {
         if (moveInputReceiver.isPressedShield)
         {
-            anim.SetTrigger("StartGuard");
+            anim.SetBool("Guarding", true);
+            //anim.SetTrigger("Guaring");
             GuardUp();
         }
         else
         {
-            anim.SetTrigger("EndGuard");
+            anim.SetBool("Guarding", false);
+            //anim.SetTrigger("EndGuard");
             GuardDown();
         }
 
@@ -93,7 +96,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-     public void AttackStart()
+    public void AttackStart()
     {
         Debug.Log("evencik1");
         GameTimeManager.Instance.ManipulateTime(zajebistyTimeCurve, 1f);
@@ -116,7 +119,7 @@ public class PlayerController : MonoBehaviour
                 StatisticsHolder enemy = item.GetComponent<StatisticsHolder>();
                 DamageData damageData = new DamageData()
                 {
-                    Damage = 25f,
+                    Damage = 5f,
                     DamageSourcePosition = transform.position,
                     Target = enemy.transform,
                     Owner = transform
@@ -182,6 +185,18 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ReturnShieldLeftAfter(5.039996f));
     }
 
+    public SkillCastFireExplosionFromShield CastExplosionSkill;
+    //from anim
+    public void SkillCastExplosion()
+    {
+       var explosion = Instantiate(CastExplosionSkill.ExplosionPrefab, transform.position, Quaternion.LookRotation(transform.forward));
+        Destroy(explosion, 5f);
+    }
+
+    
+
+    
+
     //return Shield;
     public void ReturnShieldRight()
     {
@@ -196,8 +211,6 @@ public class PlayerController : MonoBehaviour
         Destroy(ThrowShieldSkill.prefabExistingleft.gameObject);
         ThrowShieldSkill.prefabExistingleft = null;
     }
-
-
 
     IEnumerator ReturnShieldRightAfter(float time)
     {
@@ -215,8 +228,6 @@ public class PlayerController : MonoBehaviour
     {
 
     }
-
-
 
     private void TakeHit(DamageData damageData)
     {
