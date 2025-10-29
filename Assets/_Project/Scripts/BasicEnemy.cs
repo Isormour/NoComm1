@@ -41,6 +41,10 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     
     private Transform chasingTarget;
+
+    [Header("optiional")]
+    public InsideSphere AttackCheckTrigger;
+    public GameObject SpawnedParticles;
     
     enum EAIState
     {
@@ -63,6 +67,7 @@ public class BasicEnemy : MonoBehaviour
     }
     void ChangeAIState(EAIState state)
     {
+        /*
         aiState = state;
         switch (aiState)
         {
@@ -78,11 +83,13 @@ public class BasicEnemy : MonoBehaviour
                 anim.SetTrigger("Attack");
                 break;
         }
+        */
     }
 
     // Sends from animation event on hitAnimation
     private void Hit()
     {
+        chasingTarget = PlayerAnchors.Instance.transform;
         if (chasingTarget == null)
             return;
         float dist = Vector3.Distance(chasingTarget.position, this.transform.position);
@@ -100,12 +107,44 @@ public class BasicEnemy : MonoBehaviour
         player.TakeDamage(damageData);
     }
 
+    //from some animators
+    public void JumpAttack()
+    {
+
+        foreach (var item in AttackCheckTrigger.objectsInside)
+        {
+            if (item == null)
+            {
+                continue;
+            }
+
+            if (item.CompareTag("Enemy"))
+            {
+
+                StatisticsHolder enemy = item.GetComponent<StatisticsHolder>();
+                DamageData damageData = new DamageData()
+                {
+                    Damage = 10f,
+                    DamageSourcePosition = transform.position,
+                    Target = enemy.transform,
+                    Owner = transform
+                };
+                enemy.TakeDamage(damageData);
+                
+            }
+        }
+        var xd = Instantiate(SpawnedParticles, transform.position, Quaternion.identity);
+        Destroy(xd, 5f);
+    }
+
     public void OnAttackEnd()
     {
         ChangeAIState(EAIState.Chase);
     }
+
     void Update()
     {
+        /*
         if (chasingTarget == null)
         {
             FindTarget();
@@ -131,6 +170,7 @@ public class BasicEnemy : MonoBehaviour
             chasingTarget = null;
             ChangeAIState(EAIState.None);
         }
+        */
     }
 
     private void OnDrawGizmosSelected()

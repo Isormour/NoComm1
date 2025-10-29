@@ -79,6 +79,7 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
         private int _animIDDead;
+        private int _animIDDeadTrig;
 
 #if ENABLE_INPUT_SYSTEM 
         [SerializeField] private PlayerInput _playerInput;
@@ -136,6 +137,7 @@ namespace StarterAssets
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDDead = Animator.StringToHash("Dead");
+            _animIDDeadTrig = Animator.StringToHash("IsDead");
         }
 
         private void GroundedCheck()
@@ -330,7 +332,7 @@ namespace StarterAssets
 
         private void OnDeath()
         {
-
+            _animator.SetTrigger(_animIDDeadTrig);
             if (_hasAnimator)
             {
                 _animator.SetBool(_animIDDead, true);

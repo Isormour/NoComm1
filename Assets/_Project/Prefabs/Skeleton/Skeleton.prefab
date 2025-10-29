@@ -269,6 +269,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3751179605542103172}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3644720892468666155}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2915501199691819339}
     - targetCorrespondingSourceObject: {fileID: -5067417469064874575, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9008381844738031860}
@@ -1222,7 +1228,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6814877940155721939}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3042a5b1760bd0459fb1c85f02d6821, type: 3}
   m_Name: 
@@ -1230,7 +1236,7 @@ MonoBehaviour:
   agent: {fileID: 2178755895798665397}
   anim: {fileID: 232132301393045523}
   followRange: 15
-  attackRange: 1
+  attackRange: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 512
@@ -1252,7 +1258,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -1305,7 +1311,7 @@ MonoBehaviour:
   - {fileID: 5908533214472045323}
   - {fileID: 3258263672349210038}
   rbs: []
-  force: 0.5
+  force: 1
 --- !u!54 &7809619372823978741
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1314,9 +1320,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6814877940155721939}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Mass: 100
+  m_LinearDamping: 0.2
+  m_AngularDamping: 0.2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1325,7 +1331,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -1368,8 +1374,68 @@ MonoBehaviour:
   hitVFX: {fileID: 0}
   maxMana: 10
   maxHealth: 10
-  damage: 1
+  damage: 8
   currentHealth: 0
+--- !u!114 &3644720892468666155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6814877940155721939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
+  m_Graph: {fileID: -9210562806307723645, guid: 048f38803af61bc44ae0160ae1d0280c, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 4589714002138890240
+  - rid: 4589714024239464919
+  - rid: 4589714024239464920
+  m_OriginalGraph: {fileID: 0}
+  m_IsInitialised: 0
+  m_IsStarted: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4589714002138890240
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 6814877940155721939}
+    - rid: 4589714024239464919
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 10245176426105358947
+          m_Value1: 13591261116989015719
+        Name: Player
+        m_Value: {fileID: 0}
+    - rid: 4589714024239464920
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 853859077593585538
+          m_Value1: 11165414712307414979
+        Name: CurrentDistanceToTarget
+        m_Value: 9999
+--- !u!114 &2915501199691819339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6814877940155721939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76227548c6547d0428ce68d48f2a8121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimator
+  animator: {fileID: 232132301393045523}
 --- !u!1 &7781881617603813427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5067417469064874575, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf, type: 3}

@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill", menuName = "Player/Skill/Explosion", order = 1)]
 public class PlayerSkillExplosion : Skill
 {
-    [SerializeField] ExplosionController ExplosionPrefab;
+    [SerializeField] GameObject ExplosionPrefab;
     [SerializeField] ParticleSystem ChargeVFXPrefab;
     [field: SerializeField] public float Damage { private set; get; } = 10;
     [field: SerializeField] public float Size { private set; get; } = 1;
@@ -55,7 +55,7 @@ public class PlayerSkillExplosion : Skill
     {
         Vector3 position = playerController.transform.position;
         position += new Vector3(0, 0.5f, 0);// fix y position
-        ExplosionController exposionController = Instantiate(ExplosionPrefab);
+        ExplosionController exposionController = Instantiate(ExplosionPrefab).GetComponent<ExplosionController>();
         exposionController.SetParams(this);
         exposionController.transform.position = position;
         ChangeChargeVRXParams(0, new Vector2(0.1f, 0.2f));

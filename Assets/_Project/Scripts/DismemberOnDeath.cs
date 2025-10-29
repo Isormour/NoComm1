@@ -45,7 +45,7 @@ public class DismemberOnDeath : MonoBehaviour
         {
             Vector3 direction = item.transform.position - damageData.DamageSourcePosition;
             direction.y = Mathf.Clamp(direction.y, 0, 100);
-            //item.AddForce(direction * force * damageData.Damage, ForceMode.Impulse);
+            item.AddForce(direction * force * damageData.Damage, ForceMode.Impulse);
         }
     }
 }
