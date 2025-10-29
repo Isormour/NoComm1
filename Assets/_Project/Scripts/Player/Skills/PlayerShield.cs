@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerShield : MonoBehaviour
 {
 
-    public EShieldState shieldState { private set; get; } = EShieldState.None;
+    public EShieldState shieldState = EShieldState.None;
 
     [SerializeField]
     float perfectGuardTime = 0.5f;

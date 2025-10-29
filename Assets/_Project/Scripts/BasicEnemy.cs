@@ -118,18 +118,17 @@ public class BasicEnemy : MonoBehaviour
                 continue;
             }
 
-            if (item.CompareTag("Enemy"))
+            if (item.CompareTag("Player"))
             {
-
-                StatisticsHolder enemy = item.GetComponent<StatisticsHolder>();
+                StatisticsHolder player = item.GetComponent<StatisticsHolder>();
                 DamageData damageData = new DamageData()
                 {
-                    Damage = 10f,
+                    Damage = 15f,
                     DamageSourcePosition = transform.position,
-                    Target = enemy.transform,
+                    Target = player.transform,
                     Owner = transform
                 };
-                enemy.TakeDamage(damageData);
+                player.TakeDamage(damageData);
                 
             }
         }
@@ -139,7 +138,9 @@ public class BasicEnemy : MonoBehaviour
 
     public void OnAttackEnd()
     {
+
         ChangeAIState(EAIState.Chase);
+
     }
 
     void Update()
@@ -196,6 +197,10 @@ public class BasicEnemy : MonoBehaviour
         agent.SetDestination(chasingTarget.position);
     }
 
+    public void DestrouMeXD()
+    {
+        Destroy(this.gameObject, 15f);
+    }
     private void OnDeath(DamageData damageData)
     {
         agent.enabled = false;
@@ -203,3 +208,4 @@ public class BasicEnemy : MonoBehaviour
         this.enabled = false;
     }
 }
+

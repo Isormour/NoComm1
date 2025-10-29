@@ -19,6 +19,8 @@ public class ThrowedShield : MonoBehaviour
     public Collider colider;
     public float toEnemyForce;
 
+    public GameObject ParticlesOnHit;
+
     public bool isRight;
     private void Awake()
     {
@@ -157,6 +159,8 @@ public class ThrowedShield : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        var xd = Instantiate(ParticlesOnHit, transform.position, Quaternion.identity);
+        Destroy(xd, 5f);
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -168,9 +172,18 @@ public class ThrowedShield : MonoBehaviour
                 DamageSourcePosition = transform.position,
                 Target = enemy.transform,
                 Owner = PlayerAnchors.Instance.transform,
+
+               
             };
+
             enemy.TakeDamage(damageData);
             HitEnemy = true;
+            CameraVolumeTweener.TweenBloomIntensity(10f, 0.2f);
+            CameraVolumeTweener.TweenSaturation(30f, 0.3f);
+
+            //var xd = Instantiate(ParticlesOnHit, transform.position, Quaternion.identity);
+            //Destroy (xd,5f);
+
             //StartCoroutine(ComeBackShield()); //cool Feature
         }
 
@@ -180,6 +193,7 @@ public class ThrowedShield : MonoBehaviour
             {
 
                 HitSomething = true;
+
             }
         }
 

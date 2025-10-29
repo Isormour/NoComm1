@@ -1,7 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using NUnit.Framework;
 using StarterAssets;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 /*
 #####################################
@@ -40,14 +44,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerShield leftShield;
     [SerializeField] PlayerShield rightShield;
     [SerializeField] PlayerIKController IKController;
-    
+
     private MoveInputReceiver moveInputReceiver;
 
 
     [Header("Fuszera tutaj")]
     public AnimationCurve zajebistyTimeCurve;
     public InsideSphere AttackCheckTrigger;
-    
+
+    public bool hasLeftShield;
+    public bool hasRightShield;
+
+    MeshRenderer right;
+    MeshRenderer left;
+     
     private void Awake()
     {
         StatisticsHolder = GetComponent<StatisticsHolder>();
@@ -57,8 +67,18 @@ public class PlayerController : MonoBehaviour
         StatisticsHolder.OnDamage.AddListener(TakeHit);
 
         StatisticsHolder.DamageCalculator = new PlayerDamageCalculator(leftShield, rightShield);
+
+
+
+
     }
-    
+
+    private void Start()
+    {
+        right = PlayerAnchors.Instance.rightShield.GetComponent<MeshRenderer>();
+        left = PlayerAnchors.Instance.leftShield.GetComponent<MeshRenderer>();
+    }
+
     public void OnCharging()
     {
         IKController.ChargeIK();
@@ -68,11 +88,13 @@ public class PlayerController : MonoBehaviour
     bool ShieldUp = false;
     void Update()
     {
+        Debug.Log("BEKA");
         if (moveInputReceiver.isPressedShield)
         {
             anim.SetBool("Guarding", true);
             //anim.SetTrigger("Guaring");
             GuardUp();
+            Debug.Log("BEKA2");
         }
         else
         {
@@ -83,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
         if (moveInputReceiver.isPressedAttack1)
         {
-            anim.SetBool("AttackPressed",true);
+            anim.SetBool("AttackPressed", true);
             Debug.Log("koduje  coś");
         }
 
@@ -92,7 +114,32 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("AttackPressed", false);
         }
 
-        
+        hasRightShield = right.enabled;
+        hasLeftShield = left.enabled;
+
+           EffectsOnShields[0].enabled = hasLeftShield;
+            EffectsOnShields[1].enabled = hasLeftShield;
+            EffectsOnShields[2].enabled = hasRightShield;
+            EffectsOnShields[3].enabled = hasRightShield;
+
+            LightOnShields[0].enabled = hasLeftShield;
+            LightOnShields[1].enabled = hasRightShield;
+
+
+        if (!hasLeftShield)
+        {
+            //leftShield.shieldState = EShieldState.Thrown;
+        }
+
+        if (!hasRightShield)
+        {
+            //rightShield.shieldState = EShieldState.Thrown;
+        }
+
+
+
+
+
     }
 
 
@@ -102,7 +149,7 @@ public class PlayerController : MonoBehaviour
         GameTimeManager.Instance.ManipulateTime(zajebistyTimeCurve, 1f);
     }
 
-
+    public GameObject HitParticlesBoSaZajebiste;
     public void AttackHit()
     {
 
@@ -125,6 +172,12 @@ public class PlayerController : MonoBehaviour
                     Owner = transform
                 };
                 enemy.TakeDamage(damageData);
+                ZrobKolorek(AttackColor);
+                var xd = Instantiate(HitParticlesBoSaZajebiste,transform.position + Vector3.up*1.3f,transform.rotation);
+                Destroy(xd.gameObject, 6f);
+
+                CameraVolumeTweener.TweenBloomIntensity(4f, 0.1f);
+                CameraVolumeTweener.TweenSaturation(5f, 0.1f);
             }
         }
 
@@ -162,7 +215,7 @@ public class PlayerController : MonoBehaviour
         ThrowedShield xd = ShieldPrefab.GetComponent<ThrowedShield>();
         xd.isRight = true;
         PlayerAnchors.Instance.rightShield.GetComponent<MeshRenderer>().enabled = false;
-      
+
         var pos = PlayerAnchors.Instance.rightShield.transform.position;
         var rot = PlayerAnchors.Instance.rightShield.transform.rotation;
         //var scaly = PlayerAnchors.Instance.rightShield.transform.localScale;
@@ -189,13 +242,60 @@ public class PlayerController : MonoBehaviour
     //from anim
     public void SkillCastExplosion()
     {
-       var explosion = Instantiate(CastExplosionSkill.ExplosionPrefab, transform.position, Quaternion.LookRotation(transform.forward));
+        var explosion = Instantiate(CastExplosionSkill.ExplosionPrefab, transform.position, Quaternion.LookRotation(transform.forward));
         Destroy(explosion, 5f);
     }
 
-    
 
-    
+
+    public Color AttackColor;
+    public Color IdleColor;
+    public Color ComeBackColor;
+
+    public List<SpriteRenderer> EffectsOnShields = new List<SpriteRenderer>();
+    public List<Light> LightOnShields = new List<Light>();
+
+    public void ZrobKolorek(Color COLIOR)
+    {
+        StartCoroutine(LightShieldFor(COLIOR));
+    }
+
+    public IEnumerator LightShieldFor(Color xd)
+    {
+        Color startColor = EffectsOnShields[0].color;
+
+
+
+        float duration = 0.2f;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            foreach (var item in EffectsOnShields)
+            {
+                item.color = Color.Lerp(item.color, xd, t);
+            }
+
+            foreach (var item in LightOnShields)
+            {
+                item.color = Color.Lerp(item.color, xd, t);
+                item.intensity = 3.14f * (1f- t);
+            }
+
+            yield return null;
+
+        }
+
+
+        //Vector3 startPos = transform.position;
+        //Quaternion startRot = transform.rotation;
+
+
+
+
+    }
+
 
     //return Shield;
     public void ReturnShieldRight()
@@ -203,6 +303,7 @@ public class PlayerController : MonoBehaviour
         PlayerAnchors.Instance.rightShield.GetComponent<MeshRenderer>().enabled = true;
         Destroy(ThrowShieldSkill.prefabExistingright.gameObject);
         ThrowShieldSkill.prefabExistingright = null;
+        ZrobKolorek(ComeBackColor);
     }
 
     public void ReturnShieldLeft()
@@ -210,6 +311,7 @@ public class PlayerController : MonoBehaviour
         PlayerAnchors.Instance.leftShield.GetComponent<MeshRenderer>().enabled = true;
         Destroy(ThrowShieldSkill.prefabExistingleft.gameObject);
         ThrowShieldSkill.prefabExistingleft = null;
+        ZrobKolorek(ComeBackColor);
     }
 
     IEnumerator ReturnShieldRightAfter(float time)
@@ -233,7 +335,7 @@ public class PlayerController : MonoBehaviour
     {
         if (damageData.AngleToEnemy > 90)
             return;
-        
+
         bool isRightSide = damageData.AngleToEnemy < 0;
         IKController.SetIKWeight(isRightSide ? AvatarIKGoal.LeftHand : AvatarIKGoal.RightHand, 1);
     }
@@ -242,6 +344,8 @@ public class PlayerController : MonoBehaviour
     {
         leftShield.GuardUp();
         rightShield.GuardUp();
+
+        ZrobKolorek(ComeBackColor);
     }
     private void GuardDown()
     {

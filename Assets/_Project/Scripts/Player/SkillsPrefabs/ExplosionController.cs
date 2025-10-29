@@ -4,7 +4,7 @@ public class ExplosionController : MonoBehaviour
 {
     MaterialPropertyBlock block;
     MeshRenderer[] rends;
-    float Duration = 1;
+    float Duration = .5f;
     float currentTime = 0;
     [SerializeField] AnimationCurve VFXCurve;
     Vector3 locScale;
@@ -16,6 +16,7 @@ public class ExplosionController : MonoBehaviour
         block = new MaterialPropertyBlock();
         locScale = transform.localScale;
         Destroy(this.gameObject, Duration);
+
     }
     internal void SetParams(PlayerSkillExplosion explosion)
     {

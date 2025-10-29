@@ -10,6 +10,14 @@ public class FireExplosion : MonoBehaviour
         transform.position = PlayerAnchors.Instance.transform.position + PlayerAnchors.Instance.transform.forward * Mathf.PI;
     }
     bool Done = false;
+
+
+    private void Start()
+    {
+
+        CameraVolumeTweener.TweenBloomIntensity(15f, 0.1f);
+        CameraVolumeTweener.TweenSaturation(40f, 0.3f);
+    }
     private void FixedUpdate()
     {
         if (Done) this.enabled = false; 

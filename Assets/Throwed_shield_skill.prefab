@@ -230,6 +230,8 @@ MonoBehaviour:
   beka: {fileID: 155892132063098451}
   colider: {fileID: 3045510959596125816}
   toEnemyForce: 140
+  ParticlesOnHit: {fileID: 1758473627833946668, guid: bdd99772a66a16a46aa35a944b64dc79, type: 3}
+  isRight: 0
 --- !u!54 &2100495062812458663
 Rigidbody:
   m_ObjectHideFlags: 0
